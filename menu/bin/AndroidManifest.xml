@@ -32,6 +32,8 @@
         <activity android:name="SplashActivity"></activity>
         <activity android:name="ReadLetterActivity"></activity>
         <activity android:name="WriteLetterActivity"></activity>
+        <activity android:name="BigPictureActivity"></activity>
+        <activity android:name="SchedulingActivity"></activity>
     </application>
 
 </manifest>

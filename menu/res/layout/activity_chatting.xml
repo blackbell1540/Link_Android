@@ -4,11 +4,52 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="chatting"
-            android:textSize="50dp" />
+    <ListView
+        android:id="@+id/chattinglist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+        
+        <Button
+            android:id="@+id/chat_menu"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="*" />
+
+        <EditText
+            android:id="@+id/chat_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:ems="10" >
+        </EditText>
+
+        <Button
+            android:id="@+id/imoticon"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=";>" />
+
+        <Button
+            android:id="@+id/chat_ok"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ok" />
+        
+    </LinearLayout>
+
     
 
 </LinearLayout>

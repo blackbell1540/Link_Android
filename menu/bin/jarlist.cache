@@ -1,5 +1,7 @@
 # cache for current jar dependency. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1430459875706 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 C:\Users\jiyun\Desktop\study\tacademy\java\work\menu\libs\android-support-v4.jar
-1419684169502 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 C:\Users\jiyun\Desktop\study\tacademy\java\work\appcompat_v7\libs\android-support-v4.jar
+1430490286767 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 C:\Users\Administrator\Documents\GitHub\app\menu\libs\android-support-v4.jar
+1429716695407 1157300 b1fe665b784aa7314d722b2ec17e77f83ba2e717 C:\Users\Administrator\Documents\workspace\slidingmenuSupportV7library\libs\android-support-v4.jar
+1429716695407 1157300 b1fe665b784aa7314d722b2ec17e77f83ba2e717 C:\Users\Administrator\Documents\workspace\appcompat_v7\libs\android-support-v4.jar
+1419684170000 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 C:\Users\Administrator\Documents\workspace\AndroidUniversalImageLoaderLibrary\AndroidPullToRefreshLibrary\libs\android-support-v4.jar

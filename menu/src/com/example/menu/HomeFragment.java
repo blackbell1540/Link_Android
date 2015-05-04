@@ -1,8 +1,13 @@
 package com.example.menu;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import com.example.menu.R;
+import com.example.menu.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,8 +17,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,8 +33,9 @@ public class HomeFragment extends Fragment  {
 	TextView xxx;
 	static Calendar mCal = new GregorianCalendar(2014, 4, 20);
 	
-	private static final String TEMP_PHOTO_FILE = "temp.jpg";       // ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private static final int REQ_CODE_PICK_IMAGE = 0;
+    String filePath = Environment.getExternalStorageDirectory() + "/repPic.jpg";
+    Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
 	
  @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +47,7 @@ public class HomeFragment extends Fragment  {
         chattingBut = (Button) v.findViewById(R.id.chattingBut);
         xxx = (TextView) v.findViewById(R.id.DdayText);
         
+        representPic.setImageBitmap(selectedImage); 
         representPic.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -46,13 +55,15 @@ public class HomeFragment extends Fragment  {
 				/* call gallery app	 */
 				Intent intent = new Intent(
                 Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-				File tempFile = new File(Environment.getExternalStorageDirectory() + "/temp.jpg");
+				File tempFile = new File(Environment.getExternalStorageDirectory() + "/repPic.jpg");
 			    Uri tempUri = Uri.fromFile(tempFile);
-                intent.setType("image/*");              // ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
-                intent.putExtra("crop", "true");        // Cropï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);     // ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
-                intent.putExtra("outputFormat",         // ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½
+                intent.setType("image/*");              // ¸ðµç ÀÌ¹ÌÁö
+                intent.putExtra("crop", "true");        // Crop±â´É È°¼ºÈ­
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);     // ÀÓ½ÃÆÄÀÏ »ý¼º
+                intent.putExtra("outputFormat",         // Æ÷¸Ë¹æ½Ä
                         Bitmap.CompressFormat.JPEG.toString());
+                intent.putExtra("outputX", 500);
+                intent.putExtra("outputY", 500);
  
                 startActivityForResult(intent, REQ_CODE_PICK_IMAGE);
 			}
@@ -77,7 +88,7 @@ public class HomeFragment extends Fragment  {
         return v;
     }
 
-	 /** ï¿½Ù½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+	 /** ´Ù½Ã ¾×Æ¼ºñÆ¼·Î º¹±ÍÇÏ¿´À»¶§ ÀÌ¹ÌÁö¸¦ ¼ÂÆÃ */
 	 public void onActivityResult(int requestCode, int resultCode, Intent imageData) {
 	     super.onActivityResult(requestCode, resultCode, imageData);
 	
@@ -85,14 +96,14 @@ public class HomeFragment extends Fragment  {
 	     case REQ_CODE_PICK_IMAGE:
 	         if (resultCode == Activity.RESULT_OK) {
 	             if (imageData != null) {
-	                 String filePath = Environment.getExternalStorageDirectory()
-	                         + "/temp.jpg";
+	                 filePath = Environment.getExternalStorageDirectory()
+	                         + "/repPic.jpg";
 	
-	                 Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
-	                 // temp.jpgï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Bitmapï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ï¿½Ñ´ï¿½.
+	                 selectedImage = BitmapFactory.decodeFile(filePath);
+	                 // temp.jpgÆÄÀÏÀ» BitmapÀ¸·Î µðÄÚµùÇÑ´Ù.
 	
 	                 representPic.setImageBitmap(selectedImage); 
-	                 // temp.jpgï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ä¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½.
+	                 // temp.jpgÆÄÀÏÀ» ÀÌ¹ÌÁöºä¿¡ ¾º¿î´Ù.
 	             }
 	         }
 	         break;

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<!--  
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="schedule management"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/schedulenametextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:text="        name        " />
+        <EditText
+            android:id="@+id/schedulenameeditview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/schedulenametextview" />
+
+        <TextView
+            android:id="@+id/scheduleplacetextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/schedulenametextview"
+            android:paddingTop="15px"
+            android:text="        place        " />
+        <EditText
+            android:id="@+id/scheduleplaceeditview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/schedulenameeditview"
+            android:layout_toRightOf="@id/scheduleplacetextview" />
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scheduleplaceeditview"
+            android:layout_centerHorizontal="true" />
+
+        <Spinner
+            android:id="@+id/schedulereply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timePicker"
+            android:layout_centerHorizontal="true"
+            android:prompt="@string/reply"
+            android:entries="@array/reply_array" />
+
+        <Spinner
+            android:id="@+id/scheduleprenotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/schedulereply"
+            android:layout_centerHorizontal="true"
+            android:prompt="@string/prenoti"
+            android:entries="@array/prenotification_array" />
+
+        <Spinner
+            android:id="@+id/schedulesound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scheduleprenotification"
+            android:layout_centerHorizontal="true"
+            android:prompt="@string/sound"
+            android:entries="@array/sound_array" />
+
+        <Button
+            android:id="@+id/schedulecancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="17dp"
+            android:layout_marginLeft="17dp"
+            android:text="cancle" />
+
+        <Button
+            android:id="@+id/scheduleok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="17dp"
+            android:layout_marginRight="17dp"
+            android:text="    OK    " />
+ 
+"
+    </RelativeLayout>
+
+</LinearLayout>

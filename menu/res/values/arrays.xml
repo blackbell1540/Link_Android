@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name = "reply_array">
+        <item>no reply</item>
+        <item>every day</item>
+        <item>every week</item>
+        <item>every month</item>
+        <item>every year</item>
+    </string-array>
+    
+    <string-array name = "prenotification_array">
+        <item>ontime</item>
+        <item>5 min before</item>
+        <item>10 min before</item>
+        <item>30 min before</item>
+        <item>60 min before</item>
+    </string-array>
+    
+    <string-array name = "sound_array">
+        <item>sound</item>
+        <item>vibration</item>
+        <item>no sound</item>
+    </string-array>
+    
+</resources>
