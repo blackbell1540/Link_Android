@@ -1,12 +1,11 @@
 package com.example.menu;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.example.menu.FragmentOptionProfile.onModifyButtonClick;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -74,16 +73,73 @@ public class MainActivity extends SlidingFragmentActivity implements MenuFragmen
 	public void selectMenu(int menuId) {
 		switch (menuId) {
 		case MenuFragment.MENU_PROFILE:
-			Toast.makeText(MainActivity.this, "menu one clicked", Toast.LENGTH_LONG).show();
-			Intent intent = new Intent(MainActivity.this, SdfActivity.class);
-			startActivity(intent);
+			FragmentOptionProfile profileDial = new FragmentOptionProfile();
+			profileDial.show(getSupportFragmentManager(), "profile");
+			profileDial.setOnModifyButtonClick(new onModifyButtonClick() {
+				
+				@Override
+				public void onModifyButton(String message) {
+					if(message.equals("success"))
+					{}
+					
+				}
+			});
 			break;
 		case MenuFragment.MENU_THEME:
-			Toast.makeText(MainActivity.this, "menu two clicked", Toast.LENGTH_LONG).show();
+			FragmentOptionProfile themeDial = new FragmentOptionProfile();
+			themeDial.show(getSupportFragmentManager(), "profile");
+			themeDial.setOnModifyButtonClick(new onModifyButtonClick() {
+				
+				@Override
+				public void onModifyButton(String message) {
+					if(message.equals("success"))
+					{}
+					
+				}
+			});
 			break;
 		case MenuFragment.MENU_ALRAM:
-			Toast.makeText(MainActivity.this, "menu three clicked", Toast.LENGTH_LONG).show();
+			FragmentOptionProfile alramDial = new FragmentOptionProfile();
+			alramDial.show(getSupportFragmentManager(), "profile");
+			alramDial.setOnModifyButtonClick(new onModifyButtonClick() {
+				
+				@Override
+				public void onModifyButton(String message) {
+					if(message.equals("success"))
+					{}
+					
+				}
+			});
 			break;
+		case MenuFragment.MENU_NOTICE:
+			FragmentOptionProfile noticeDial = new FragmentOptionProfile();
+			noticeDial.show(getSupportFragmentManager(), "profile");
+			noticeDial.setOnModifyButtonClick(new onModifyButtonClick() {
+				
+				@Override
+				public void onModifyButton(String message) {
+					if(message.equals("success"))
+					{}
+					
+				}
+			});
+			break;
+		case MenuFragment.MENU_DROP_OUT:
+			FragmentOptionProfile dropOutDial = new FragmentOptionProfile();
+			dropOutDial.show(getSupportFragmentManager(), "profile");
+			dropOutDial.setOnModifyButtonClick(new onModifyButtonClick() {
+				
+				@Override
+				public void onModifyButton(String message) {
+					if(message.equals("success"))
+					{}
+					
+				}
+			});
+			break;
+			
+			
+
 		default:
 			break;
 		}		
