@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginTop="9dp" >
+
+        <Button
+            android:id="@+id/buttonDeleteRLetterCard"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:focusable="false"
+            android:text="Del" />
+
+        <ImageView
+            android:id="@+id/imageProfileRLetterCard"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/textContentRLetterCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="85dp"
+            android:layout_marginTop="20dp"
+            android:text="TextView" />
+
+    </FrameLayout>
+
+</LinearLayout>
