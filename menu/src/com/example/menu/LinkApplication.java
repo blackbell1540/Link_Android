@@ -45,7 +45,7 @@ private static Context mContext;
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
 				.writeDebugLogs() // Remove for release app
 				.defaultDisplayImageOptions(options)
-				.imageDownloader(new HttpClientImageDownloader(context, NetworkManager.getInstnace().getHttpClient()))
+				.imageDownloader(new HttpClientImageDownloader(context, LinkNetworkManager.getInstnace().getHttpClient()))
 				.build();
 		ImageLoader.getInstance().init(config);
 	}

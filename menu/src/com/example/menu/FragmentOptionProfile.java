@@ -12,12 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.menu.LinkNetworkManager.OnResultListener;
+
 public class FragmentOptionProfile extends DialogFragment{
 
 	//views
 	TextView textName, textBirth, textPhone;
 	ImageView imageProfile;
 	Button btn;
+	int userId = 1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,6 +57,8 @@ public class FragmentOptionProfile extends DialogFragment{
 				
 			}
 		});
+		
+		initUserInfo();
 		return view;
 	}
 	
@@ -73,5 +78,28 @@ public class FragmentOptionProfile extends DialogFragment{
 		getDialog().setTitle("profile");
 	}
 
-	
+	private void initUserInfo(){
+		LinkNetworkManager.getInstnace().getUserInfo(getActivity(), userId, new OnResultListener<UserInfo>() {
+			
+			@Override
+			public void onSuccess(UserInfo user) {
+				if(user.success.equals("1"))
+				{
+					String userName = user.result.get(0).user_name;
+					int userPhoneNumber = user.result.get(0).phone_number;
+					
+					textName.setText(userName);
+					textPhone.setText(""+userPhoneNumber);
+					
+				}else
+				{ Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show(); }
+			}
+			
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
 }

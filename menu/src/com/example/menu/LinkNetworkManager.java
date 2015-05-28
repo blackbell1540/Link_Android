@@ -8,23 +8,29 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
+import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.MySSLSocketFactory;
 import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 
-public class NetworkManager {
-	private static NetworkManager instance;
-	public static NetworkManager getInstnace() {
-		if (instance == null) {
-			instance = new NetworkManager();
+public class LinkNetworkManager {
+	private static LinkNetworkManager Netinstance;
+	public static LinkNetworkManager getInstnace() {
+		if (Netinstance == null) {
+			Netinstance = new com.example.menu.LinkNetworkManager();
 		}
-		return instance;
+		return Netinstance;
 	}
 	
 	AsyncHttpClient client;
-	private NetworkManager() {
+	private LinkNetworkManager() {
 		
 		try {
 			KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
@@ -57,5 +63,34 @@ public class NetworkManager {
 	public interface OnResultListener<T> {
 		public void onSuccess(T movie);
 		public void onFail(int code);
+	}
+	
+	
+	
+	Gson gson = new Gson();
+	public static final String SERVER = "http://192.168.123.115:3000";
+	
+	//15. user info
+	public static final String USER_INFO = SERVER + "/user/profile";
+	public void getUserInfo(Context context, int userId, final OnResultListener<UserInfo> listener)
+	{
+		RequestParams params = new RequestParams();
+		params.put("user_id", ""+userId);
+		client.post(context, USER_INFO, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) {
+				UserInfo result = gson.fromJson(responseString, UserInfo.class);
+				listener.onSuccess(result);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				listener.onFail(statusCode);
+				
+			}
+		});
 	}
 }
