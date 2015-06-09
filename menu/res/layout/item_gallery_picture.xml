@@ -8,17 +8,26 @@
     <TextView
         android:id="@+id/text_name"
         android:layout_width="0dp"
-        android:layout_weight="2"
+        android:layout_weight="9"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageView
         android:id="@+id/image_icon"
         android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:layout_height="70dp"
         android:layout_gravity= "center"
         android:src="@drawable/ic_launcher" />
+    
+    <Button
+        android:id="@+id/gallery_remove"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="X" />
+"
 
 
 </LinearLayout>

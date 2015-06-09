@@ -1,3 +1,6 @@
+#ignore files
 *.class
-*.class
-*.class
+*.dex
+*.apk
+*.ap_
+menu/bin/classes.dex
