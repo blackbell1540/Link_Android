@@ -5,10 +5,13 @@ import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
 
+<<<<<<< HEAD
 import com.example.calendar.CalendarFragment;
 import com.example.gallery.GalleryFragment;
 import com.example.home.HomeFragment;
 import com.example.letter.LetterFragment;
+=======
+>>>>>>> 762baa7a8c99323cc6239fedf8ec326f0c939d23
 import com.example.menu.FragmentOptionProfile.onModifyButtonClick;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;

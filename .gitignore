@@ -4,3 +4,6 @@
 *.apk
 *.ap_
 menu/bin/classes.dex
+*.classpath
+*.jar
+menu/project.properties

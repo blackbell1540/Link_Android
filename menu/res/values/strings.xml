@@ -5,11 +5,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_sdf">SdfActivity</string>
+<<<<<<< HEAD
     
     <string name="left">&lt;</string>
     <string name="right">&gt;</string>
     <string name="reply">reply management</string>
     <string name="prenoti">pre notification</string>
     <string name="sound">sound management</string>
+=======
+>>>>>>> 762baa7a8c99323cc6239fedf8ec326f0c939d23
 
 </resources>
