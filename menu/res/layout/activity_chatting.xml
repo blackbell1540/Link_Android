@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-<<<<<<< HEAD
     <ListView
         android:id="@+id/chattinglist"
         android:layout_width="match_parent"
@@ -50,14 +49,6 @@
             android:text="ok" />
         
     </LinearLayout>
-
-=======
-     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="chatting"
-            android:textSize="50dp" />
->>>>>>> 762baa7a8c99323cc6239fedf8ec326f0c939d23
     
 
 </LinearLayout>

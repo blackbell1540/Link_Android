@@ -39,7 +39,7 @@ public class LinkNetworkManager {
 			socketFactory.setHostnameVerifier(MySSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 			client = new AsyncHttpClient();
 			client.setSSLSocketFactory(socketFactory);			
-			client.setCookieStore(new PersistentCookieStore(LinkApplication.getContext()));
+			//client.setCookieStore(new PersistentCookieStore(LinkApplication.getContext()));
 			client.setTimeout(30000);
 		} catch (KeyStoreException e) {
 			e.printStackTrace();

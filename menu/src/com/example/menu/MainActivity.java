@@ -5,24 +5,10 @@ import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.example.calendar.CalendarFragment;
 import com.example.gallery.GalleryFragment;
 import com.example.home.HomeFragment;
 import com.example.letter.LetterFragment;
-=======
->>>>>>> 762baa7a8c99323cc6239fedf8ec326f0c939d23
-import com.example.menu.FragmentOptionProfile.onModifyButtonClick;
-=======
-import com.example.menu.dropout.FragmentOptionDropOut;
-import com.example.menu.letter.LetterFragment;
-import com.example.menu.optionalarm.FragmentOptionAlarm;
-import com.example.menu.optionnotice.FragmentOptionNotice;
-import com.example.menu.optionprofile.FragmentOptionProfile;
-import com.example.menu.optionprofile.FragmentOptionProfile.onModifyButtonClick;
-import com.example.menu.optiontheme.FragmentOptionTheme;
->>>>>>> origin/0512_menus
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
