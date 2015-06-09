@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.example.calendar.CalendarFragment;
 import com.example.gallery.GalleryFragment;
 import com.example.home.HomeFragment;
@@ -13,6 +14,15 @@ import com.example.letter.LetterFragment;
 =======
 >>>>>>> 762baa7a8c99323cc6239fedf8ec326f0c939d23
 import com.example.menu.FragmentOptionProfile.onModifyButtonClick;
+=======
+import com.example.menu.dropout.FragmentOptionDropOut;
+import com.example.menu.letter.LetterFragment;
+import com.example.menu.optionalarm.FragmentOptionAlarm;
+import com.example.menu.optionnotice.FragmentOptionNotice;
+import com.example.menu.optionprofile.FragmentOptionProfile;
+import com.example.menu.optionprofile.FragmentOptionProfile.onModifyButtonClick;
+import com.example.menu.optiontheme.FragmentOptionTheme;
+>>>>>>> origin/0512_menus
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -93,56 +103,20 @@ public class MainActivity extends SlidingFragmentActivity implements MenuFragmen
 			});
 			break;
 		case MenuFragment.MENU_THEME:
-			FragmentOptionProfile themeDial = new FragmentOptionProfile();
-			themeDial.show(getSupportFragmentManager(), "profile");
-			themeDial.setOnModifyButtonClick(new onModifyButtonClick() {
-				
-				@Override
-				public void onModifyButton(String message) {
-					if(message.equals("success"))
-					{}
-					
-				}
-			});
+			FragmentOptionTheme themeDial = new FragmentOptionTheme();
+			themeDial.show(getSupportFragmentManager(), "theme");
 			break;
 		case MenuFragment.MENU_ALRAM:
-			FragmentOptionProfile alramDial = new FragmentOptionProfile();
-			alramDial.show(getSupportFragmentManager(), "profile");
-			alramDial.setOnModifyButtonClick(new onModifyButtonClick() {
-				
-				@Override
-				public void onModifyButton(String message) {
-					if(message.equals("success"))
-					{}
-					
-				}
-			});
+			FragmentOptionAlarm alramDial = new FragmentOptionAlarm();
+			alramDial.show(getSupportFragmentManager(), "alarm");
 			break;
 		case MenuFragment.MENU_NOTICE:
-			FragmentOptionProfile noticeDial = new FragmentOptionProfile();
-			noticeDial.show(getSupportFragmentManager(), "profile");
-			noticeDial.setOnModifyButtonClick(new onModifyButtonClick() {
-				
-				@Override
-				public void onModifyButton(String message) {
-					if(message.equals("success"))
-					{}
-					
-				}
-			});
+			FragmentOptionNotice noticeDial = new FragmentOptionNotice();
+			noticeDial.show(getSupportFragmentManager(), "notice");
 			break;
 		case MenuFragment.MENU_DROP_OUT:
-			FragmentOptionProfile dropOutDial = new FragmentOptionProfile();
-			dropOutDial.show(getSupportFragmentManager(), "profile");
-			dropOutDial.setOnModifyButtonClick(new onModifyButtonClick() {
-				
-				@Override
-				public void onModifyButton(String message) {
-					if(message.equals("success"))
-					{}
-					
-				}
-			});
+			FragmentOptionDropOut dropOutDial = new FragmentOptionDropOut();
+			dropOutDial.show(getSupportFragmentManager(), "dropout");
 			break;
 			
 			
