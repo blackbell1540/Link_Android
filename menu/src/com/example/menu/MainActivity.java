@@ -9,6 +9,7 @@ import com.example.calendar.CalendarFragment;
 import com.example.gallery.GalleryFragment;
 import com.example.home.HomeFragment;
 import com.example.letter.LetterFragment;
+import com.example.menu.FragmentOptionProfile.onModifyButtonClick;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
