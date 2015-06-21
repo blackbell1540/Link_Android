@@ -2,13 +2,16 @@ package com.example.menu;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +22,10 @@ public class FragmentOptionProfile extends DialogFragment
 
 	//views
 	TextView textName, textBirth, textPhone;
-	ImageView imageProfile;
+	ImageView imageProfile, imageSelect;
+	EditText editName, editBirth;
 	Button btn;
+	LinearLayout showProfile, modiProfile, showButton, modiButton;
 	int userId = 1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,24 +47,65 @@ public class FragmentOptionProfile extends DialogFragment
 		View view = inflater.inflate(R.layout.fragment_option_profile, container, false);
 		
 		//find views
-		textName = (TextView)view.findViewById(R.id.textProfileName);
-		textBirth = (TextView)view.findViewById(R.id.textProfileBirth);
-		textPhone = (TextView)view.findViewById(R.id.textProfilePhone);
+		textName = (TextView)view.findViewById(R.id.TextProfileName);
+		textBirth = (TextView)view.findViewById(R.id.TextProfileBirth);
+		textPhone = (TextView)view.findViewById(R.id.TextProfilePhone);
 		imageProfile = (ImageView)view.findViewById(R.id.imageMenuProfile);
+		imageSelect = (ImageView)view.findViewById(R.id.imageSelect);
+		editName = (EditText)view.findViewById(R.id.editName);
+		editBirth = (EditText)view.findViewById(R.id.editBirth);
+		showProfile = (LinearLayout)view.findViewById(R.id.ShowProfile);
+		modiProfile = (LinearLayout)view.findViewById(R.id.ModiProfile);
+		showButton = (LinearLayout)view.findViewById(R.id.ShowButton);
+		modiButton = (LinearLayout)view.findViewById(R.id.ModiButton);
+		
+		initUserInfo();
+		
 		//modify button click
 		btn = (Button)view.findViewById(R.id.buttonModify);
 		btn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				if(mListener != null)
-				{ mListener.onModifyButton("success"); }
-				Toast.makeText(getActivity(), "mody?", Toast.LENGTH_SHORT).show();
-				
+				showProfile.setVisibility(View.GONE);
+				modiProfile.setVisibility(View.VISIBLE);
+				showButton.setVisibility(View.GONE);
+				modiButton.setVisibility(View.VISIBLE);
 			}
 		});
 		
-	//	initUserInfo();
+		//ok button click
+		btn = (Button)view.findViewById(R.id.buttonModiOK);
+		btn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dismiss();
+			}
+		});
+		
+		//modify cancel button click
+		btn = (Button)view.findViewById(R.id.buttonModiCancel);
+		btn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				showProfile.setVisibility(View.VISIBLE);
+				modiProfile.setVisibility(View.GONE);
+				showButton.setVisibility(View.VISIBLE);
+				modiButton.setVisibility(View.GONE);
+			}
+		});
+		
+		//modify complete button click
+		btn = (Button)view.findViewById(R.id.buttonModiComplete);
+		btn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				updateUserProfile();
+			}
+		});
+		
 		return view;
 	}
 	
@@ -79,7 +125,7 @@ public class FragmentOptionProfile extends DialogFragment
 		getDialog().setTitle("profile");
 	}
 
-//	private void initUserInfo(){
+	private void initUserInfo(){
 //		NetworkManager.getInstnace().getUserInfo(getActivity(), userId, new OnResultListener<UserInfo>() {
 //			
 //			@Override
@@ -102,7 +148,10 @@ public class FragmentOptionProfile extends DialogFragment
 //				
 //			}
 //		});
-//	}
+	}
+	
+	private void updateUserProfile()
+	{}
 
 
 }

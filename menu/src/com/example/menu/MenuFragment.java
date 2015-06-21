@@ -54,11 +54,11 @@ public class MenuFragment extends Fragment{
 		list.setAdapter(mAdapter);
 		
 		//menu add
-		mAdapter.add("í”„ë¡œí•„ ì„¤ì •");
-		mAdapter.add("í…Œë§ˆ ì„¤ì •");
-		mAdapter.add("ì•Œë¦¼ìŒ ì„¤ì •");
-		mAdapter.add("ê³µì§€/ì•½ê´€");
-		mAdapter.add("íƒˆí‡´í•˜ê¸°");
+		mAdapter.add("³» ÇÁ·ÎÇÊ");
+		mAdapter.add("¾Ë¶÷ ¼öÁ¤");
+		mAdapter.add("Å×¸¶ ¼öÁ¤");
+		mAdapter.add("°øÁö/¾à°ü");
+		mAdapter.add("Å»Åğ");
 		
 		//list click
 		list.setOnItemClickListener(new OnItemClickListener() {

@@ -4,49 +4,166 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <ImageView
-            android:id="@+id/imageMenuProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
+    <FrameLayout
+        android:id="@+id/FrameLayout1"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:background="#ffffffff" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/ShowProfile"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:background="#ffffffff"
+            android:visibility="visible" >
+
+            <ImageView
+                android:id="@+id/imageMenuProfile"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/TextProfileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textColor="#666666"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/TextProfileBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp"
+                    android:text="Birth"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#666666"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/TextProfilePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="phone"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#666666"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ModiProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/imageSelect"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/editName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="이름"
+                    android:textColor="#666666"
+                    android:textColorHint="#999999"
+                    android:textSize="20sp" >
+
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/editBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="생일-19920817"
+                    android:inputType="number"
+                    android:textColor="#666666"
+                    android:textColorHint="#999999"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone"
+                    android:textColor="#666666"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ShowButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" >
 
             <Button
                 android:id="@+id/buttonModify"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:layout_weight="1"
+                android:background="@drawable/button_modi_profile"
+                android:text="@null" />
 
-            <TextView
-                android:id="@+id/textProfileName"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/buttonModiOK"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_weight="1"
+                android:background="@drawable/button_modi_ok"
+                android:text="@null" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/textProfileBirth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Small Text"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+        <LinearLayout
+            android:id="@+id/ModiButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone" >
 
-            <TextView
-                android:id="@+id/textProfilePhone"
+            <Button
+                android:id="@+id/buttonModiCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small Text"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:layout_weight="1"
+                android:background="@drawable/button_modi_cancel"
+                android:text="@null" />
+
+            <Button
+                android:id="@+id/buttonModiComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_modi_ok"
+                android:text="@null" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

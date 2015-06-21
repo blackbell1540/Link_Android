@@ -9,7 +9,7 @@
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:id="@+id/imageMenuProfile"
+            android:id="@+id/imageSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_launcher" />
@@ -20,7 +20,7 @@
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/buttonComplete"
+                android:id="@+id/buttonModiComplete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="완료" />

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.example.calendar.CalendarFragment;
 import com.example.gallery.GalleryFragment;
@@ -16,23 +17,35 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 public class MainActivity extends SlidingFragmentActivity implements MenuFragment.MenuCallback {
 	SlidingMenu sMenu;
 	private FragmentTabHost mTabHost;
+	ImageView tHome, tGallery, tLetter, tcalendar; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setBehindContentView(R.layout.menu_container);
 		
+		//tab image
+		tHome = new ImageView(MainActivity.this);
+		tGallery = new ImageView(MainActivity.this);
+		tLetter = new ImageView(MainActivity.this);
+		tcalendar = new ImageView(MainActivity.this);
+		
+		tHome.setImageResource(R.drawable.tab_home_selector);
+		tGallery.setImageResource(R.drawable.tab_gallery_selector);
+		tLetter.setImageResource(R.drawable.tab_letter_selector);
+		tcalendar.setImageResource(R.drawable.tab_calendar_selector);
+		
 		//tabhost
 		mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 		
-		mTabHost.addTab(mTabHost.newTabSpec("home").setIndicator("home"),
+		mTabHost.addTab(mTabHost.newTabSpec("home").setIndicator(tHome),
 				HomeFragment.class, null);
-		mTabHost.addTab(mTabHost.newTabSpec("gallery").setIndicator("gallery"),
+		mTabHost.addTab(mTabHost.newTabSpec("gallery").setIndicator(tGallery),
 				GalleryFragment.class, null);
-		mTabHost.addTab(mTabHost.newTabSpec("letter").setIndicator("letter"),
+		mTabHost.addTab(mTabHost.newTabSpec("letter").setIndicator(tLetter),
 				LetterFragment.class, null);
-		mTabHost.addTab(mTabHost.newTabSpec("calendar").setIndicator("calendar"),
+		mTabHost.addTab(mTabHost.newTabSpec("calendar").setIndicator(tcalendar),
 				CalendarFragment.class, null);
 		
 		getSupportFragmentManager().beginTransaction().add(R.id.menucontainer, new MenuFragment()).commit();
