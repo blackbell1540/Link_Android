@@ -107,7 +107,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textPhone"
+                    android:id="@+id/textDropout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Phone"
@@ -147,7 +147,7 @@
             android:visibility="gone" >
 
             <Button
-                android:id="@+id/buttonModiCancel"
+                android:id="@+id/buttonDialCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

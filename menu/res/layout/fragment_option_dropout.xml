@@ -4,37 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/FrameLayout2"
         android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_height="170dp"
         android:layout_gravity="center"
-        android:background="#12345678"
-        android:orientation="vertical" >
+        android:background="#ffffff" >
 
         <TextView
-            android:id="@+id/textPhone"
+            android:id="@+id/textDropout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:text="탈퇴하시겠습니까?"
+            android:textColor="#383838"
+            android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" >
 
             <Button
-                android:id="@+id/buttonModiCancel"
+                android:id="@+id/buttonDialCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:layout_weight="1"
+                android:background="@drawable/button_modi_cancel"
+                android:text="@null" />
 
             <Button
                 android:id="@+id/buttonOK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:layout_weight="1"
+                android:background="@drawable/button_modi_ok"
+                android:text="@null" />
 
         </LinearLayout>
-
-    </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>

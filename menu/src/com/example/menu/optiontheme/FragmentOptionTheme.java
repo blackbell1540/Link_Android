@@ -1,4 +1,4 @@
-package com.example.menu;
+package com.example.menu.optiontheme;
 
 import android.support.v4.app.DialogFragment;
 
