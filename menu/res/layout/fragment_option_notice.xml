@@ -4,10 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ExpandableListView
-        android:id="@+id/expandableNotice"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </ExpandableListView>
+    <FrameLayout
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:background="#ffffff" >
+
+        <ExpandableListView
+            android:id="@+id/expandableNotice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:groupIndicator="@null"
+            android:scrollbars="@null" >
+
+        </ExpandableListView>
+
+    </FrameLayout>
 
 </LinearLayout>
