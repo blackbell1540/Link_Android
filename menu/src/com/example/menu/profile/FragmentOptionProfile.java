@@ -80,7 +80,7 @@ public class FragmentOptionProfile extends DialogFragment
 		});
 		
 		//ok button click
-		btn = (Button)view.findViewById(R.id.buttonModiOK);
+		btn = (Button)view.findViewById(R.id.buttonThemeCancel);
 		btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

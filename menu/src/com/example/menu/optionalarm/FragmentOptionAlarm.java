@@ -2,11 +2,15 @@ package com.example.menu.optionalarm;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -19,6 +23,7 @@ public class FragmentOptionAlarm extends DialogFragment{
 	Button btn;
 	CheckBox checkSound, checkVibration;
 	Spinner spinAlarm;
+	ArrayAdapter<String> alarmAdapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,31 @@ public class FragmentOptionAlarm extends DialogFragment{
 		//find views
 		checkSound = (CheckBox)view.findViewById(R.id.checkSound);
 		checkVibration = (CheckBox)view.findViewById(R.id.checkVibration);
+		spinAlarm = (Spinner)view.findViewById(R.id.spinnerAlarm);
+		alarmAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
+		alarmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinAlarm.setAdapter(alarmAdapter);
+		
+		//spinner setting
+		alarmAdapter.add("alarm1");
+		alarmAdapter.add("alarm2");
+		alarmAdapter.add("alarm3");
+		
+		//spinner select
+		spinAlarm.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				
+			}
+
+		});
 		
 		//button alarm setting click
 		btn = (Button)view.findViewById(R.id.buttonSetting);

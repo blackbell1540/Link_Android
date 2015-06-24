@@ -4,76 +4,115 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textDropout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    <FrameLayout
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:background="#ffffff" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/buttonBeforeTheme"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/imageTheme"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/abc_list_longpressed_holo" />
+            <TextView
+                android:id="@+id/textTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="테마 설정"
+                android:textColor="#383838"
+                android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/buttonNextTheme"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/buttonBeforeTheme"
+                    android:layout_width="50dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/before"
+                    android:text="@null" />
+
+                <ImageView
+                    android:id="@+id/imageTheme"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ffffff" />
+
+                <Button
+                    android:id="@+id/buttonNextTheme"
+                    android:layout_width="50dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/next"
+                    android:text="@null" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="글씨체 설정"
+                android:textColor="#383838"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/radio0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="RadioButton" />
+
+                <RadioButton
+                    android:id="@+id/radio1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RadioButton" />
+
+                <RadioButton
+                    android:id="@+id/radio2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RadioButton" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
-    </LinearLayout>
+            android:layout_gravity="bottom" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+            <Button
+                android:id="@+id/buttonThemeCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_modi_cancel"
+                android:text="@null" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+            <Button
+                android:id="@+id/buttonThemeOK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_modi_ok"
+                android:text="@null" />
 
-        <RadioButton
-            android:id="@+id/radio0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="RadioButton" />
+        </LinearLayout>
 
-        <RadioButton
-            android:id="@+id/radio1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/radio2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-    </RadioGroup>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/buttonModiOK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

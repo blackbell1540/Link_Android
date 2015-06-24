@@ -95,4 +95,22 @@ public class SharedPreferenceManager {
 		mEditor.commit();
 	}
 	
+	//vibration option
+	private static final String CURRENT_THEME = "current_theme";
+	private int mTheme;
+		
+	public int getTheme()
+	{
+		if(mTheme == 0)
+		{ mTheme = mUser.getInt(CURRENT_THEME, mTheme); }
+		return mTheme;
+	}
+		
+	public void setTheme(int theme)
+	{
+		mTheme = theme;
+		mEditor.putInt(CURRENT_THEME, mTheme);
+		mEditor.commit();
+	}	
+	
 }
