@@ -43,9 +43,10 @@ public class FragmentOptionTheme extends DialogFragment {
 		
 		//find views
 		imageTheme = (ImageView)view.findViewById(R.id.imageTheme);
-		
+
 		//set current theme
 		cThemeNum = SharedPreferenceManager.getInstance().getTheme();
+		imageTheme.setImageResource(themeResource[cThemeNum]);
 		
 		//change theme
 		btn = (Button)view.findViewById(R.id.buttonBeforeTheme);
@@ -71,11 +72,11 @@ public class FragmentOptionTheme extends DialogFragment {
 		//button complete click
 		btn = (Button)view.findViewById(R.id.buttonThemeOK);
 		btn.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
-			public void onClick(View v) {
-				if(mListener != null)
-				{ mListener.onCompleteButton("success"); }
+			public void onClick(View arg0) {
+				SharedPreferenceManager.getInstance().setTheme(cThemeNum);
+				dismiss();
 			}
 		});
 		
@@ -90,15 +91,6 @@ public class FragmentOptionTheme extends DialogFragment {
 		});
 		return view;
 	}
-	
-	//complete button listener
-	public interface onCompleteButtonClick
-	{ public void onCompleteButton(String message); }
-	
-	onCompleteButtonClick mListener;
-	
-	public void setOnCompleteButtonClick(onCompleteButtonClick listener)
-	{ mListener = listener; }
 	
 	@Override
 	public void onActivityCreated(Bundle arg0) {

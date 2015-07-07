@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.calendar.CalendarFragment;
 import com.example.gallery.GalleryFragment;
@@ -28,7 +29,7 @@ public class MainActivity extends SlidingFragmentActivity implements MenuFragmen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setBehindContentView(R.layout.menu_container);
-		
+
 		//tab image
 		tHome = new ImageView(MainActivity.this);
 		tGallery = new ImageView(MainActivity.this);
@@ -107,18 +108,22 @@ public class MainActivity extends SlidingFragmentActivity implements MenuFragmen
 				}
 			});
 			break;
-		case MenuFragment.MENU_THEME:
-			FragmentOptionTheme themeDial = new FragmentOptionTheme();
-			themeDial.show(getSupportFragmentManager(), "theme");
-			break;
+			
 		case MenuFragment.MENU_ALRAM:
 			FragmentOptionAlarm alramDial = new FragmentOptionAlarm();
 			alramDial.show(getSupportFragmentManager(), "alarm");
 			break;
+			
+		case MenuFragment.MENU_THEME:
+			FragmentOptionTheme themeDial = new FragmentOptionTheme();
+			themeDial.show(getSupportFragmentManager(), "theme");
+			break;
+			
 		case MenuFragment.MENU_NOTICE:
 			FragmentOptionNotice noticeDial = new FragmentOptionNotice();
 			noticeDial.show(getSupportFragmentManager(), "notice");
 			break;
+			
 		case MenuFragment.MENU_DROP_OUT:
 			FragmentOptionDropOut dropOutDial = new FragmentOptionDropOut();
 			dropOutDial.show(getSupportFragmentManager(), "dropout");

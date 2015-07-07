@@ -10,12 +10,12 @@ public class SharedPreferenceManager {
 		if(instance == null)
 		{ instance = new SharedPreferenceManager(); }
 		return instance;
-	}
+	}	
 	
 	//shared preference
 	private static final String PREF_USER = "user";
-	SharedPreferences mUser;
-	SharedPreferences.Editor mEditor;
+	SharedPreferences mUser = null;
+	SharedPreferences.Editor mEditor = null;
 	
 	private SharedPreferenceManager()
 	{
@@ -34,7 +34,7 @@ public class SharedPreferenceManager {
 		return mSginUp;
 	}
 	
-	public void setIsSignUp(String sign_up)
+	public void setIsSignUp(String sign_up)	
 	{
 		mSginUp = sign_up;
 		mEditor.putString(IS_SIGN_UP, sign_up);
@@ -77,6 +77,24 @@ public class SharedPreferenceManager {
 		mEditor.commit();
 	}
 	
+	//sound option
+	private static final String SOUND_ALARM = "sound_alarm";
+	private int mAlarm;
+	
+	public int getAlarm()
+	{
+		if(mAlarm == 0)
+		{ mAlarm = mUser.getInt(SOUND_ALARM, 1); }
+		return mAlarm;
+	}
+	
+	public void setAlarm(int alarm)
+	{
+		mAlarm = alarm;
+		mEditor.putInt(SOUND_ALARM, mAlarm);
+		mEditor.commit();
+	}
+	
 	//vibration option
 	private static final String VIBRATION_ON = "vibration_on";
 	private String mVibration;
@@ -113,4 +131,21 @@ public class SharedPreferenceManager {
 		mEditor.commit();
 	}	
 	
+	//font type
+	private static final String FONT_TYPE = "font_type";
+	private String mFont;
+		
+	public String getFont()
+	{
+		if(mFont == null)
+		{ mFont = mUser.getString(FONT_TYPE, "font1"); }
+		return mFont;
+	}
+		
+	public void setFont(String font)
+	{
+		mFont = font;
+		mEditor.putString(FONT_TYPE, "font1");
+		mEditor.commit();
+	}	
 }

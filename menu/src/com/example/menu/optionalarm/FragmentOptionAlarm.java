@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.menu.R;
 import com.example.menu.SharedPreferenceManager;
@@ -52,6 +53,23 @@ public class FragmentOptionAlarm extends DialogFragment{
 		alarmAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
 		alarmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinAlarm.setAdapter(alarmAdapter);
+
+		//sound check box view
+		String sound = SharedPreferenceManager.getInstance().getSound();
+		if("ON".equals(sound))
+		{ checkSound.setChecked(true); }
+		else
+		{ checkSound.setChecked(false); }
+				
+		//vibration check box view
+		if(SharedPreferenceManager.getInstance().getVibration().equals("ON"))
+		{ checkVibration.setChecked(true); }
+		else
+		{ checkVibration.setChecked(false); }
+		
+		//alarm box view
+		int alarm = SharedPreferenceManager.getInstance().getAlarm();
+		spinAlarm.setSelection(alarm-1);
 		
 		//spinner setting
 		alarmAdapter.add("alarm1");
@@ -63,8 +81,8 @@ public class FragmentOptionAlarm extends DialogFragment{
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				
+					int position, long arg3) {
+				SharedPreferenceManager.getInstance().setAlarm(position+1);
 			}
 
 			@Override
@@ -80,8 +98,20 @@ public class FragmentOptionAlarm extends DialogFragment{
 			
 			@Override
 			public void onClick(View v) {
-				if(mListener != null)
-				{ mListener.onSettingButton("success"); }
+
+				//store sound setting
+				if(checkSound.isChecked())
+				{ SharedPreferenceManager.getInstance().setSound("ON"); }
+				else
+				{ SharedPreferenceManager.getInstance().setSound("OFF"); }
+				
+				//store vibration setting
+				if(checkVibration.isChecked())
+				{ SharedPreferenceManager.getInstance().setVibration("ON"); }
+				else
+				{ SharedPreferenceManager.getInstance().setVibration("OFF"); }
+				
+				dismiss();
 			}
 		});
 		
@@ -95,29 +125,7 @@ public class FragmentOptionAlarm extends DialogFragment{
 			}
 		});
 	
-		//sound check box view
-		if(SharedPreferenceManager.getInstance().getSound().equals("ON"))
-		{ checkSound.setChecked(true); }
-		else
-		{ checkSound.setChecked(false); }
 		
-		//sound check box on
-		if(checkSound.isChecked())
-		{ SharedPreferenceManager.getInstance().setSound("ON"); }
-		else
-		{ SharedPreferenceManager.getInstance().setSound("OFF"); }
-		
-		//vibration check box view
-		if(SharedPreferenceManager.getInstance().getVibration().equals("ON"))
-		{ checkVibration.setChecked(true); }
-		else
-		{ checkVibration.setChecked(false); }
-		
-		//vibration check box on/off
-		if(checkVibration.isChecked())
-		{ SharedPreferenceManager.getInstance().setVibration("ON"); }
-		else
-		{ SharedPreferenceManager.getInstance().setVibration("OFF");}
 		
 		return view;
 	}

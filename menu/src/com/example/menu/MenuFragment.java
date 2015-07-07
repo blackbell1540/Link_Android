@@ -55,8 +55,8 @@ public class MenuFragment extends Fragment{
 		
 		//menu add
 		mAdapter.add("내 프로필");
-		mAdapter.add("알람 수정");
 		mAdapter.add("테마 수정");
+		mAdapter.add("알람 수정");
 		mAdapter.add("공지/약관");
 		mAdapter.add("탈퇴");
 		
