@@ -68,7 +68,33 @@ public class NetworkManager {
 	
 	
 	Gson gson = new Gson();
-	public static final String SERVER = "http://192.168.123.115:3000";
+	public static final String SERVER = "http://125.180.57.26:12345";
+
+	//1. user login & join
+	public static final String USER_LOGIN_JOIN = SERVER + "/user/login";
+	public void getUserLoginJoin(Context context, String e_mail, String phone_number, final OnResultListener<LoginResult> listener)
+	{
+		RequestParams params = new RequestParams();
+		params.put("e_mail", ""+e_mail);
+		params.put("phone_number", ""+phone_number);
+		client.post(context, USER_LOGIN_JOIN, params, new TextHttpResponseHandler() {
+
+			@Override
+			public void onFailure(int statusCode,
+					org.apache.http.Header[] headers, String responseString,
+					Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(int statusCode,
+					org.apache.http.Header[] headers, String responseString) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
 	
 	//15. user info
 	public static final String USER_INFO = SERVER + "/user/profile";
