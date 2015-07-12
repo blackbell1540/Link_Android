@@ -22,6 +22,11 @@ public class BubbleAdapter extends BaseAdapter{
 		this.mContext = mContext;
 	}
 	
+	public void clear() {
+		items.clear();
+		notifyDataSetChanged();
+	}
+	
 	public void add(Bubble item)
 	{
 		items.add(item);

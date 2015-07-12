@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ public class PictureView extends FrameLayout {
 	TextView nameView;
 	ImageView iconView;
 	Picture mData;
+	Button delete;
 	
 	public PictureView(Context context) {
 		super(context);
@@ -35,13 +37,17 @@ public class PictureView extends FrameLayout {
 		LayoutInflater.from(getContext()).inflate(R.layout.item_gallery_picture, this);
 		iconView = (ImageView) findViewById(R.id.image_icon);
 		nameView = (TextView) findViewById(R.id.text_name);
+		delete = (Button) findViewById(R.id.gallery_remove);
 	}
 	
 	public void setPicture(Picture data) {
 		mData = data;
-		String filePath = Environment.getExternalStorageDirectory() + data.picpath;
-        Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
-		iconView.setImageBitmap(selectedImage);
+		Bitmap newImage = Bitmap.createScaledBitmap(
+        		BitmapFactory.decodeFile(
+        				Environment.getExternalStorageDirectory() + data.picpath,
+        				new BitmapFactory.Options()),
+        		100, 100, false);
+		iconView.setImageBitmap(newImage);
 		nameView.setText(data.date + "\n" + data.name);
 		
 	}

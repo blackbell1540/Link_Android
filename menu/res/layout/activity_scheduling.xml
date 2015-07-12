@@ -97,7 +97,6 @@
             android:layout_marginRight="17dp"
             android:text="    OK    " />
  
-"
     </RelativeLayout>
 
 </LinearLayout>

@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp" >
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+
+    <ImageView
+        android:id="@+id/chatting_receive_profile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher"
+        android:layout_weight="1"  />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="5"  >
 
         <ImageView
-            android:id="@+id/bubble_receive_image"
+            android:id="@+id/chatting_receive_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/ic_launcher" />
+            android:gravity="center" />
 
         <TextView
-            android:id="@+id/bubble_receive_text"
+            android:id="@+id/chatting_receive_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/bubble_receive_image"
-            android:layout_toRightOf="@+id/bubble_receive_image"
-            android:ems="10" />
+            android:ems="15" />
 
-    </RelativeLayout>
+    </LinearLayout>
+
 
 </LinearLayout>

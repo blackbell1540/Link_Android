@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment  {
 			public void onClick(View v) {
 				/* call gallery app	 */
 				Intent intent = new Intent(
-                Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+						Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				File tempFile = new File(Environment.getExternalStorageDirectory() + "/repPic.jpg");
 			    Uri tempUri = Uri.fromFile(tempFile);
                 intent.setType("image/*");              // 모든 이미지

@@ -1,5 +1,9 @@
 package com.example.home;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Calendar;
 
 import com.example.menu.R;
@@ -7,7 +11,11 @@ import com.example.menu.R.id;
 import com.example.menu.R.layout;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -28,15 +36,17 @@ public class ReceiveBubbleView extends FrameLayout{
 	}
 	
 	//views
+	TextView contentText;
+	ImageView contentImage;
 	ImageView profile;
-	TextView content;
 	
 	//init data
 	private void init()
 	{
 		LayoutInflater.from(getContext()).inflate(R.layout.item_chatting_receive, this);
-		profile = (ImageView)findViewById(R.id.bubble_receive_image);
-		content = (TextView)findViewById(R.id.bubble_receive_text);
+		contentText = (TextView)findViewById(R.id.chatting_receive_text);
+		contentImage = (ImageView)findViewById(R.id.chatting_receive_image);
+		profile = (ImageView)findViewById(R.id.chatting_receive_profile);
 		
 	}
 	
@@ -45,12 +55,14 @@ public class ReceiveBubbleView extends FrameLayout{
 	public void setBubble(Bubble data)
 	{
 		mData = data;
-		content.setText(Calendar.YEAR + "년 "
-				+ Calendar.MONTH + "월 "
-				+ Calendar.DATE + "일 "
-				+ Calendar.HOUR + "시 "
-				+ Calendar.MINUTE + "분\n" + data.content);
-		
+		if (data.picture.equals("-1")) {
+			contentText.setText(data.date + "\n" + data.message);
+		} else {
+			InputStream stream = new ByteArrayInputStream(Base64.decode(data.picture, Base64.DEFAULT));
+			Bitmap bmp = BitmapFactory.decodeStream(stream);
+	        contentImage.setImageBitmap(bmp);
+		}
+		profile.setImageResource(R.drawable.ic_launcher);
 	}
 	
 }

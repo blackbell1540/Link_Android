@@ -6,7 +6,10 @@ import com.example.menu.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -62,7 +65,9 @@ public class BigPictureActivity extends Activity {
 	
 	private void init() {
 		Picture p = GalleryFragment.adapter.items.get(position);
-		image.setImageResource(p.imageId);
+		Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + p.picpath);
+        
+        image.setImageBitmap(bmp);
 		text.setText(p.name);
 	}
 

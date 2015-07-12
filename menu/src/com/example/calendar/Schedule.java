@@ -1,8 +1,8 @@
 package com.example.calendar;
 
 public class Schedule {
-	public String name, place, date;
-	public int id;
+	public String calendar_name, place, date;
+	public int calendar_id;
 	public int hour, min;
-	public int repeat = 0, prealarm = 0, sound = 0;
+	public int reply = 0, prealarm = 0, sound = 0;
 }

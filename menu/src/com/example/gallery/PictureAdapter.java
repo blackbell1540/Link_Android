@@ -1,6 +1,8 @@
 package com.example.gallery;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +12,25 @@ public class PictureAdapter extends BaseAdapter {
 	ArrayList<Picture> items = new ArrayList<Picture>();
 	Context mContext;
 	
+	public interface onButtonClickListener {
+		void btnClick(Picture p);
+	}
+	private onButtonClickListener adptCallback = null;
+	public void setOnButtonClickListener(onButtonClickListener callback) {
+		adptCallback = callback;
+	}
+	
 	public PictureAdapter(Context c) {
 		this.mContext = c;
 	}
-		
+
 	public void add(Picture item) {
 		items.add(item);
+		notifyDataSetChanged();
+	}
+	
+	public void delete(Picture item) {
+		items.remove(item);
 		notifyDataSetChanged();
 	}
 		
@@ -36,12 +51,21 @@ public class PictureAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		PictureView view;
+		final PictureView view;
 		if(convertView != null && convertView instanceof PictureView)
 		{ view = (PictureView)convertView; }
 		else
 		{ view = new PictureView(mContext); }
 		view.setPicture(items.get(position));
+		view.delete.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(adptCallback != null)
+					adptCallback.btnClick(view.mData);
+				
+			}
+		});
 		return view;
 	}
 
