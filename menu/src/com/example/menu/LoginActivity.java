@@ -62,22 +62,7 @@ public class LoginActivity extends Activity implements
 			}
 		});
 		
-		int userId = 3;
-		
-		NetworkManager.getInstnace().getUserInfo(LoginActivity.this, userId, new OnResultListener<UserInfo>() {
-			
-			@Override
-			public void onSuccess(UserInfo result) {
-				Toast.makeText(LoginActivity.this, result.result.get(0).user_id, Toast.LENGTH_SHORT).show();
-				
-			}
-			
-			@Override
-			public void onFail(int code) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+
 	}
 	
 	@Override
@@ -113,7 +98,7 @@ public class LoginActivity extends Activity implements
 			@Override
 			public void onSuccess(LoginResult result) {
 				Toast.makeText(LoginActivity.this, "login ONsuccess", Toast.LENGTH_SHORT).show();
-				if(result.success.equals('1'))
+				if(result.success.equals("1"))
 				{
 					Toast.makeText(LoginActivity.this, "login result.success", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
@@ -129,7 +114,7 @@ public class LoginActivity extends Activity implements
 			@Override
 			public void onFail(int code) {
 				// TODO Auto-generated method stub
-				
+				Toast.makeText(LoginActivity.this, "login onFail", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

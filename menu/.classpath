@@ -5,12 +5,11 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/workspace/test/libs/android-support-v4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/workspace/test/libs/android-support-v7-appcompat.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/workspace/test/libs/engine.io-client-0.3.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/workspace/test/libs/gson-2.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/workspace/test/libs/Java-WebSocket-1.3.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/workspace/test/libs/json-20140107.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/workspace/test/libs/socket.io-client-0.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BlackBell/android-sdks/extras/android/support/v4/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BlackBell/Desktop/study/커플앱 만들기/engine.io-client-0.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BlackBell/Desktop/study/커플앱 만들기/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BlackBell/Desktop/study/커플앱 만들기/Java-WebSocket-1.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BlackBell/Desktop/study/커플앱 만들기/json-20140107.jar"/>
+	<classpathentry kind="lib" path="C:/Users/BlackBell/Desktop/study/커플앱 만들기/socket.io-client-0.2.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

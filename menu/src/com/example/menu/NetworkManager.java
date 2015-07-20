@@ -97,11 +97,64 @@ public class NetworkManager {
 			@Override
 			public void onSuccess(int statusCode,
 					org.apache.http.Header[] headers, String responseString) {
+				LoginResult result = gson.fromJson(responseString, LoginResult.class);
+				listener.onSuccess(result);
+				
+			}
+		});
+	}
+	
+	//2. find partner
+	public static final String FIND_PARTNER = SERVER + "/link/findpartner";
+	public void findPartner(Context context, String partner_mail, int user_id, final OnResultListener<FindPartnerResult> listener){
+		RequestParams params = new RequestParams();
+		params.put("partner_email", partner_mail);
+		params.put("user_id", ""+user_id);
+		
+		client.post(context, FIND_PARTNER, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, org.apache.http.Header[] headers,
+					String responseString) {
+				FindPartnerResult result = gson.fromJson(responseString, FindPartnerResult.class);
+				listener.onSuccess(result);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, org.apache.http.Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+		}); 
+	}
+	
+	//3. check link request
+	public static final String CHECK_LINK_REQUEST = SERVER + "/link/checkreq";
+	public void checkReq(Context context, int user_id, final OnResultListener<CheckReqResult> lintener){
+		RequestParams params = new RequestParams();
+		params.put("user_id", ""+user_id);
+		
+		client.post(context, CHECK_LINK_REQUEST, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, org.apache.http.Header[] headers,
+					String responseString) {
+				CheckReqResult result = gson.fromJson(responseString, CheckReqResult.class);
+				lintener.onSuccess(result);
+				
+			}
+			
+			@Override
+			public void onFailure(int statusCode, org.apache.http.Header[] headers,
+					String responseString, Throwable throwable) {
 				// TODO Auto-generated method stub
 				
 			}
 		});
 	}
+	
+	//4. 
 	
 	//9. calendar schedule add
 		public static final String CALENDAR_ADD = SERVER + "/calendar/add";
