@@ -83,7 +83,7 @@ public class ChattingActivity extends FragmentActivity {
 				JSONObject obj = new JSONObject();
 				try {
 					obj.put("LINK_ID", "1");
-					obj.put("SENDER_ID", "2");
+					obj.put("SENDER_ID", "1");
 					obj.put("MESSAGE", text.getText().toString());
 					obj.put("PICTURE", "-1");
 				} catch (JSONException e) {
@@ -156,7 +156,7 @@ public class ChattingActivity extends FragmentActivity {
 	    				// TODO Auto-generated catch block
 	    				e.printStackTrace();
 	    			}
-	    			if (b.sender_id == 2) 
+	    			if (b.sender_id == 1) 
 	    				b.type = b.SEND_BUBBLE;
 	    			else
 	    				b.type = b.RECEIVE_BUBBLE;
@@ -189,7 +189,7 @@ public class ChattingActivity extends FragmentActivity {
 	            	    String imageDataString = Base64.encodeToString(imageArray, Base64.DEFAULT);
 	            	    
 	 					obj.put("LINK_ID", "1");
-	 					obj.put("SENDER_ID", "2");
+	 					obj.put("SENDER_ID", "1");
 	 					obj.put("MESSAGE", "-1");
 	 					obj.put("PICTURE", imageDataString);
 	 					
@@ -223,7 +223,7 @@ public class ChattingActivity extends FragmentActivity {
 				// TODO Auto-generated method stub
 				if(r.success == 1) {
 					for(Bubble i : r.result) {
-						if (i.sender_id == 2) 
+						if (i.sender_id == 1) 
 							i.type = i.SEND_BUBBLE;
 						else
 							i.type = i.RECEIVE_BUBBLE;

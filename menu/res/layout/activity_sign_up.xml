@@ -2,18 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffaa00"
     android:orientation="vertical" >
 
     <EditText
         android:id="@+id/editFindPartner"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/search_bar"
         android:ems="10"
-        android:hint="상대방의 구글계정을 입력해주세요."
         android:inputType="textEmailAddress" >
 
         <requestFocus />
@@ -21,32 +16,21 @@
 
     <Button
         android:id="@+id/buttonFindPartner"
-        android:layout_width="300dp"
-        android:layout_height="38dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/button_findpartner"
-        android:text="@null" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="find" />
 
     <EditText
         android:id="@+id/editInvitePartner"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/search_bar"
         android:ems="10"
-        android:hint="상대방의 번호11자리를 입력해주세요."
-        android:inputType="number" />
+        android:inputType="phone" />
 
     <Button
         android:id="@+id/buttonInvitePartner"
-        android:layout_width="300dp"
-        android:layout_height="38dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/button_invite"
-        android:text="@null" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite" />
 
 </LinearLayout>

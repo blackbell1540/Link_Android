@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.menu.R;
-//import com.example.menu.LinkNetworkManager.OnResultListener;
+import com.example.menu.LinkNetworkManager.OnResultListener;
 import com.example.menu.R.drawable;
 import com.example.menu.R.id;
 import com.example.menu.R.layout;
