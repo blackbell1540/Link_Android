@@ -1,6 +1,8 @@
 package com.example.calendar;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.example.menu.NetworkManager;
 import com.example.menu.R;
@@ -10,8 +12,14 @@ import com.example.menu.R.id;
 import com.example.menu.R.layout;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,8 +52,10 @@ public class ScheduleModifyActivity extends Activity {
 		position = i.getIntExtra("position", 0);
 		System.out.println("position : " + position);
 		final Schedule s = CalendarFragment.adapter.getItem(position);
-		//final Schedule s = new Schedule();
 		s.date = i.getStringExtra("date");
+		s.year = i.getIntExtra("year", 0);
+		s.month = i.getIntExtra("month", 0);
+		s.day = i.getIntExtra("day", 0);
 	    
 	     cancle = (Button) findViewById(R.id.schedulecancle);
 	     cancle.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +147,7 @@ public class ScheduleModifyActivity extends Activity {
 						if(r.success == 1) {
 							CalendarFragment.adapter.items.set(position, s);
 							CalendarFragment.adapter.notifyDataSetChanged();
+							setAlarm(s);	
 						}
 					}
 
@@ -151,6 +162,56 @@ public class ScheduleModifyActivity extends Activity {
 				finish();
 			}
 		});
+	}
+	
+	private void setAlarm(Schedule s) {
+		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		Intent i = new Intent(getApplicationContext(), AlarmReceiver.class);
+		PendingIntent pIntent = PendingIntent.getBroadcast(ScheduleModifyActivity.this, 0, i, 0);
+		alarmManager.cancel(pIntent);
+		
+        i.putExtra("sound", s.sound);
+        i.putExtra("ticker", s.hour + ":" + s.min + " " + s.calendar_name);
+        i.putExtra("title", "일정 알림 " + s.date + " " + s.hour + ":" + s.min);
+        i.putExtra("text", s.calendar_name + " at " + s.place);
+        i.putExtra("id", s.calendar_id);
+
+        Calendar c = Calendar.getInstance();
+        c.set(s.year, s.month-1, s.day, s.hour, s.min);
+        
+        switch(s.prealarm) {
+		case 1:
+			c.add(c.MINUTE, -5);
+			break;
+		case 2:
+			c.add(c.MINUTE, -10);
+			break;
+		case 3:
+			c.add(c.MINUTE, -30);
+			break;
+		case 4:
+			c.add(c.MINUTE, -60);
+			break;
+		}
+        
+        switch(s.reply) {
+        case 0:
+        	alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pIntent);
+        	break;
+        case 1:
+        	alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 24 * 60 * 60 * 1000, pIntent);
+        	break;
+        case 2:
+        	alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 7 * 24 * 60 * 60 * 1000, pIntent);
+        	break;
+        case 3:
+        	alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 30 * 24 * 60 * 60 * 1000, pIntent);
+        	break;
+        case 4:
+        	alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 365 * 24 * 60 * 60 * 1000, pIntent);
+        	break;
+        }
+        Log.d("alarm", "alarm modified");
 	}
 
 }

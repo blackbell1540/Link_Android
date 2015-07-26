@@ -66,14 +66,14 @@ public class SharedPreferenceManager {
 	public String getSound()
 	{
 		if(mSound == null)
-		{ mSound = mUser.getString(SOUND_ON, "N"); }
+		{ mSound = mUser.getString(SOUND_ON, "ON"); }
 		return mSound;
 	}
 	
 	public void setSound(String sound)
 	{
 		mSound = sound;
-		mEditor.putString(SOUND_ON, "N");
+		mEditor.putString(SOUND_ON, "ON");
 		mEditor.commit();
 	}
 	

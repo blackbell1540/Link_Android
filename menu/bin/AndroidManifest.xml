@@ -57,6 +57,7 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <receiver android:name="com.example.calendar.AlarmReceiver"></receiver>
     </application>
 
 </manifest>
