@@ -2,7 +2,6 @@ package com.example.menu.profile;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.menu.R;
-import com.example.menu.LinkNetworkManager.OnResultListener;
-import com.example.menu.R.drawable;
-import com.example.menu.R.id;
-import com.example.menu.R.layout;
-import com.example.menu.R.style;
 
 public class FragmentOptionProfile extends DialogFragment
 {

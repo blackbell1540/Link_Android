@@ -15,9 +15,9 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-		String start = "N";
+		String start = "Y";
 				//SharedPreferenceManager.getInstance().getIsSignUp();
-		String link = "Y";
+		String link = "N";
 		//SharedPreferenceManager.getInstance().getIsLinked();
 		
 		//already signUP
@@ -28,11 +28,10 @@ public class SplashActivity extends Activity {
 			{	moveWaiting(); }
 			else  //link already
 			{ moveHome(); }
-
 		}
 		else   //sign up not yet
 		{	
-			moveSignUp();
+			moveLogin();
 		}
 		
 	}
@@ -56,7 +55,7 @@ public class SplashActivity extends Activity {
 	}
 	
 	//move SignUp
-	private void moveSignUp()
+	private void moveLogin()
 	{
 		mHandler.postDelayed(new Runnable() {
 			
