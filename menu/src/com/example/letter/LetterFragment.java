@@ -1,9 +1,5 @@
 package com.example.letter;
 
-import com.example.menu.R;
-import com.example.menu.R.id;
-import com.example.menu.R.layout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +10,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.menu.NetworkManager;
+import com.example.menu.NetworkManager.OnResultListener;
+import com.example.menu.R;
+import com.example.menu.SharedPreferenceManager;
 
 public class LetterFragment extends Fragment  {
 	
@@ -23,6 +25,8 @@ public class LetterFragment extends Fragment  {
 	LetterAdapter letterAdapter;
 	Button buttondelete, buttonAdd;
 	LetterCardData cardData;
+	
+	int link_id;
 	
 	public static final String SELECTED_CARD_NUMBER = "seleted_card";
  @Override
@@ -34,7 +38,7 @@ public class LetterFragment extends Fragment  {
         //find views
         list = (ListView)V.findViewById(R.id.listLetter);
         letterAdapter = new LetterAdapter(getActivity());
-        list.setAdapter(letterAdapter);
+        link_id = SharedPreferenceManager.getInstance().getLinkId();
   
         initData();
         
@@ -69,22 +73,39 @@ public class LetterFragment extends Fragment  {
         
 
     }
-private void initData() {
+ private void initData() {
+	 NetworkManager.getInstnace().getLetterList(getActivity(), link_id, new OnResultListener<ResultLetterList>() {
 		
-	for(int i = 0 ; i<5; i++)
-	{
-		LetterCardData data = new LetterCardData();
-		data.letterContent = "receive content";
-		data.type = LetterCardData.RECEIVE_LETTER;
-		letterAdapter.add(data);
-
-		LetterCardData _data = new LetterCardData();
-		_data.letterContent = "send content";
-		_data.type = LetterCardData.SEND_LETTER;
-		letterAdapter.add(_data);
-	}
-	
-}
+		@Override
+		public void onSuccess(ResultLetterList result) {
+			if(result.success.equals("1"))
+			{
+				for(DataLetter dataletter : result.result)
+				{
+					//organize sender
+					int myUserId = SharedPreferenceManager.getInstance().getUserId();
+					if(myUserId == dataletter.sender_id)
+					{ cardData.type = LetterCardData.SEND_LETTER; }
+					else
+					{ cardData.type = LetterCardData.RECEIVE_LETTER; }
+					
+					cardData.letterContent = dataletter.content;
+					
+					list.setAdapter(letterAdapter);
+					letterAdapter.add(cardData);
+				}
+			}else
+			{ Toast.makeText(getActivity(), "letter link load fail", Toast.LENGTH_SHORT).show(); }
+			
+		}
+		
+		@Override
+		public void onFail(int code) {
+			// TODO Auto-generated method stub
+			
+		}
+	});
+ }
  
 
 }

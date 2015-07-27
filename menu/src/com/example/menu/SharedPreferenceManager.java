@@ -59,7 +59,43 @@ public class SharedPreferenceManager {
 		mEditor.commit();
 	}
 	
-	//sound option
+	//user id
+	private static final String USER_ID = "user_id";
+	private int mUserId;
+	
+	public int getUserId()
+	{
+		if(mUserId == 0)
+		{ mUserId = mUser.getInt(USER_ID, 0); }
+		return mUserId;
+	}
+	
+	public void setUserId(int userId)
+	{
+		mUserId = userId;
+		mEditor.putInt(USER_ID, userId);
+		mEditor.commit();
+	}
+
+	//user link_id
+	private static final String LINK_ID = "link_id";
+	public int mLinkId;
+	
+	public int getLinkId()
+	{
+		if(mLinkId == 0)
+		{ mLinkId = mUser.getInt(LINK_ID, 0); }
+		return mLinkId;
+	}
+	
+	public void setLinkId(int link_id)
+	{
+		mLinkId = link_id;
+		mEditor.putInt(LINK_ID, mLinkId);
+		mEditor.commit();
+	}
+	
+	//sound option - on/off
 	private static final String SOUND_ON = "sound_on";
 	private String mSound;
 	
@@ -77,7 +113,7 @@ public class SharedPreferenceManager {
 		mEditor.commit();
 	}
 	
-	//sound option
+	//sound option - sound file number
 	private static final String SOUND_ALARM = "sound_alarm";
 	private int mAlarm;
 	

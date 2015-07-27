@@ -7,14 +7,22 @@
     <ListView
         android:id="@+id/listLetter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:divider="@null"
+        android:scrollbars="@null" >
+
     </ListView>
 
     <Button
         android:id="@+id/buttonAddLetter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom|right"
-        android:text="Add" />
+        android:layout_margin="20dp"
+        android:background="#ff6600"
+        android:text="+"
+        android:textColor="#ffffff"
+        android:textSize="25sp" />
 
 </FrameLayout>

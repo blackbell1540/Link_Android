@@ -2,11 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#ffaa00" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#ccffffff"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -15,22 +18,52 @@
 
             <ImageView
                 android:id="@+id/imageReadLetterProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/white_circle" />
+
+            <TextView
+                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher" />
+                android:layout_weight="1"
+                android:text="@null" />
 
             <TextView
                 android:id="@+id/textLetterDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_gravity="top"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="13dp"
+                android:text="0000-00-00"
+                android:textSize="15sp" />
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/textLetterContent"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_margin="10dp"
+            android:text="content.."
+            android:textColor="#444444"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="#bbbbbb"
+            android:text="확  인"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
     </LinearLayout>
 
 </ScrollView>

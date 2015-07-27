@@ -8,17 +8,22 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
+import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
 
 import android.content.Context;
-import android.preference.PreferenceActivity.Header;
 
 import com.example.calendar.Schedule;
 import com.example.calendar.ScheduleAddResult;
 import com.example.calendar.ScheduleListResult;
 import com.example.calendar.ScheduleRemoveResult;
 import com.example.home.BubbleListResult;
-import com.example.menu.NetworkManager.OnResultListener;
+import com.example.letter.ResultDelLetter;
+import com.example.letter.ResultLetter;
+import com.example.letter.ResultLetterList;
+import com.example.letter.ResultWriteLetter;
+import com.example.menu.notice.DataNotice;
+import com.example.menu.notice.ResultNotice;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.MySSLSocketFactory;
@@ -129,7 +134,7 @@ public class NetworkManager {
 	
 	//3. check link request
 	public static final String CHECK_LINK_REQUEST = SERVER + "/link/checkreq";
-	public void checkReq(Context context, int user_id, final OnResultListener<CheckReqResult> lintener){
+	public void checkReq(Context context, int user_id, final OnResultListener<CheckReqResult> listener){
 		RequestParams params = new RequestParams();
 		params.put("user_id", ""+user_id);
 		
@@ -139,7 +144,7 @@ public class NetworkManager {
 			public void onSuccess(int statusCode, org.apache.http.Header[] headers,
 					String responseString) {
 				CheckReqResult result = gson.fromJson(responseString, CheckReqResult.class);
-				lintener.onSuccess(result);
+				listener.onSuccess(result);
 				
 			}
 			
@@ -152,8 +157,108 @@ public class NetworkManager {
 		});
 	}
 	
-	//4. 
+	//5.letter list
+	public static final String LETTER_LIST = SERVER + "letter/letterlit";
+	public void getLetterList(Context context, int link_id, final OnResultListener<ResultLetterList> listener){
+		RequestParams params = new RequestParams();
+		params.put("link_id", ""+link_id);
+		client.post(context,  LETTER_LIST, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) {
+				ResultLetterList result = gson.fromJson(responseString, ResultLetterList.class);
+				listener.onSuccess(result);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	//6. read letter
+	public static final String READ_LETTER = SERVER + "/letter/readletter";
+	public void getLetter(Context context, int letter_id, final OnResultListener<ResultLetter> listener)
+	{
+		RequestParams params = new RequestParams();
+		params.put("letter_id", ""+letter_id);
 		
+		client.post(context, READ_LETTER, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) {
+				ResultLetter result = gson.fromJson(responseString, ResultLetter.class);
+				listener.onSuccess(result);
+				
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	//7. write letter
+	public static final String WRITE_LETTER = SERVER + "/letter/writeletter";
+	public void sendLetter(Context context, int link_id, int user_id, String letter_content, String date, final OnResultListener<ResultWriteLetter> listener)
+	{
+		RequestParams params = new RequestParams();
+		params.put("link_id", ""+link_id);
+		params.put("user_id", ""+user_id);
+		params.put("letter_content", ""+letter_content);
+		params.put("date", ""+date);
+		
+		client.post(context, WRITE_LETTER, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) {
+				ResultWriteLetter result = gson.fromJson(responseString, ResultWriteLetter.class);
+				listener.onSuccess(result);
+				
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	//8. delete letter
+	public static final String DELETE_LETTER = SERVER + "letter/deleteletter";
+	public void deleteLetter(Context context, int letter_id, final OnResultListener<ResultDelLetter> listener)
+	{
+		RequestParams params = new RequestParams();
+		params.put("letter_id", ""+letter_id);
+		
+		client.post(context, DELETE_LETTER, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) {
+				ResultDelLetter result = gson.fromJson(responseString, ResultDelLetter.class);
+				listener.onSuccess(result);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
 	//9. calendar schedule add
 		public static final String CALENDAR_ADD = SERVER + "/calendar/add";
 		public void getCalendarAdd(Context context, int modi, Schedule s, final OnResultListener<ScheduleAddResult> listener)
@@ -293,5 +398,28 @@ public class NetworkManager {
 			}
 		});
 	}
-
+	
+	//17. notice and terms
+	public static final String NOTICE = SERVER + "/notice";
+	public void getNotice(Context context, final OnResultListener<ResultNotice> listener)
+	{
+		client.get(context, NOTICE, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, org.apache.http.Header[] headers,
+					String responseString) {
+				ResultNotice result = gson.fromJson(responseString, ResultNotice.class);
+				listener.onSuccess(result);				
+				
+			}
+			
+			@Override
+			public void onFailure(int statusCode, org.apache.http.Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
 }

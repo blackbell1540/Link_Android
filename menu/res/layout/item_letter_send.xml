@@ -8,35 +8,41 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginBottom="9dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginTop="9dp" >
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="9dp"
+        android:background="#ffaa00" >
 
         <Button
             android:id="@+id/buttonDeleteSLetterCard"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="top|left"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_delete"
             android:focusable="false"
-            android:text="Del" />
+            android:text="@null" />
 
         <ImageView
             android:id="@+id/imageProfileSLetterCard"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_marginRight="10dp"
+            android:src="@drawable/white_circle" />
 
         <TextView
             android:id="@+id/textContentSLetterCard"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:text="TextView" />
+            android:layout_marginTop="50dp"
+            android:maxLines="2"
+            android:text="letter content"
+            android:textColor="@color/grey"
+            android:textSize="15sp" />
 
     </FrameLayout>
 

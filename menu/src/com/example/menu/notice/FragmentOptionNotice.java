@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
+import com.example.menu.NetworkManager;
+import com.example.menu.NetworkManager.OnResultListener;
 import com.example.menu.R;
 
 public class FragmentOptionNotice extends DialogFragment {
@@ -37,7 +40,7 @@ public class FragmentOptionNotice extends DialogFragment {
 		//find views
 		expandableNotice = (ExpandableListView)view.findViewById(R.id.expandableNotice);
 		noticeAdapter = new NoticeAdapter(getActivity());
-		expandableNotice.setAdapter(noticeAdapter);
+		
 		
 		initData();
 		
@@ -48,12 +51,30 @@ public class FragmentOptionNotice extends DialogFragment {
 	DataNoticeContent cData;
 	private void initData()
 	{
-		for(int i=0; i<10; i++)
-		{
-			String title = "title" + i;
-			String content = "content" + i;
-			noticeAdapter.add(title, content);
-		}
+		NetworkManager.getInstnace().getNotice(getActivity(), new OnResultListener<ResultNotice>() {
+
+			@Override
+			public void onSuccess(ResultNotice result) {
+				// TODO Auto-generated method stub
+				if(result.success.equals("1"))
+				{
+					expandableNotice.setAdapter(noticeAdapter);
+					for(DataNotice notice : result.result)
+					{
+						noticeAdapter.add(notice.title, notice.content);
+					}
+				}else
+				{ Toast.makeText(getActivity(), "notice network fail", Toast.LENGTH_SHORT).show(); }
+			}
+
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+
+		});
 	}
 	
 	@Override

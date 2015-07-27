@@ -101,6 +101,8 @@ public class LoginActivity extends Activity implements
 				if(result.success.equals("1"))
 				{
 					Toast.makeText(LoginActivity.this, "login result.success", Toast.LENGTH_SHORT).show();
+					SharedPreferenceManager.getInstance().setUserId(result.result);
+					
 					Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
 					startActivity(intent);
 					finish();

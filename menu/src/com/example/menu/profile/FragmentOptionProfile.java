@@ -131,7 +131,7 @@ public class FragmentOptionProfile extends DialogFragment
 //				if(user.success.equals("1"))
 //				{
 //					String userName = user.result.get(0).user_name;
-//					int userPhoneNumber = user.result.get(0).phone_number;
+//					int userPhoneNumber = user.re	nsult.get(0).phone_number;
 //					
 //					textName.setText(userName);
 //					textPhone.setText(""+userPhoneNumber);
