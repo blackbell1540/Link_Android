@@ -158,7 +158,7 @@ public class NetworkManager {
 	}
 	
 	//5.letter list
-	public static final String LETTER_LIST = SERVER + "letter/letterlit";
+	public static final String LETTER_LIST = SERVER + "/letter/letterlist";
 	public void getLetterList(Context context, int link_id, final OnResultListener<ResultLetterList> listener){
 		RequestParams params = new RequestParams();
 		params.put("link_id", ""+link_id);

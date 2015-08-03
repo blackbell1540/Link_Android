@@ -3,6 +3,7 @@ package com.example.letter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class LetterFragment extends Fragment  {
 	ListView list;
 	LetterAdapter letterAdapter;
 	Button buttondelete, buttonAdd;
-	LetterCardData cardData;
+	DataLetter cardData;
 	
 	int link_id;
 	
@@ -39,7 +40,7 @@ public class LetterFragment extends Fragment  {
         list = (ListView)V.findViewById(R.id.listLetter);
         letterAdapter = new LetterAdapter(getActivity());
         link_id = SharedPreferenceManager.getInstance().getLinkId();
-  
+        link_id = 1;
         initData();
         
         //delete button click
@@ -74,6 +75,8 @@ public class LetterFragment extends Fragment  {
 
     }
  private void initData() {
+	 final int myUserId = 1;
+	 Log.i("letter_frag","l: "+link_id+" u:" + myUserId);
 	 NetworkManager.getInstnace().getLetterList(getActivity(), link_id, new OnResultListener<ResultLetterList>() {
 		
 		@Override
@@ -83,13 +86,14 @@ public class LetterFragment extends Fragment  {
 				for(DataLetter dataletter : result.result)
 				{
 					//organize sender
-					int myUserId = SharedPreferenceManager.getInstance().getUserId();
+					//int myUserId = SharedPreferenceManager.getInstance().getUserId();
+					cardData = new DataLetter();
 					if(myUserId == dataletter.sender_id)
-					{ cardData.type = LetterCardData.SEND_LETTER; }
+					{ cardData.type = DataLetter.SEND_LETTER; }
 					else
-					{ cardData.type = LetterCardData.RECEIVE_LETTER; }
+					{ cardData.type = DataLetter.RECEIVE_LETTER; }
 					
-					cardData.letterContent = dataletter.content;
+					cardData.content = dataletter.content;
 					
 					list.setAdapter(letterAdapter);
 					letterAdapter.add(cardData);

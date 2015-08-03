@@ -17,7 +17,7 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.activity_splash);
 		String start = "Y";
 				//SharedPreferenceManager.getInstance().getIsSignUp();
-		String link = "N";
+		String link = "Y";
 		//SharedPreferenceManager.getInstance().getIsLinked();
 		
 		//already signUP
