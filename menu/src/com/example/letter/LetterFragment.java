@@ -41,7 +41,6 @@ public class LetterFragment extends Fragment  {
         letterAdapter = new LetterAdapter(getActivity());
         link_id = SharedPreferenceManager.getInstance().getLinkId();
         link_id = 1;
-        initData();
         
         //delete button click
         
@@ -61,11 +60,13 @@ public class LetterFragment extends Fragment  {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				//throw data
-				int pos = position;
+				DataLetter selecLetter = (DataLetter)letterAdapter.getItem(position);
+				int letter_id = selecLetter.letter_id;
 				
 				//new Activity
 				Intent intent = new Intent(getActivity(), ReadLetterActivity.class);
-				intent.putExtra(SELECTED_CARD_NUMBER, pos);
+				intent.putExtra(SELECTED_CARD_NUMBER, letter_id);
+				Log.i("letter_id",""+ letter_id);
 				startActivity(intent);
 			}
         });
@@ -74,7 +75,16 @@ public class LetterFragment extends Fragment  {
         
 
     }
- private void initData() {
+ 
+ 	@Override
+ 	public void onStart() {
+ 		super.onStart();
+ 		letterAdapter.clear();
+ 		initData();
+ 	}
+ 
+ 
+ 	private void initData() {
 	 final int myUserId = 1;
 	 Log.i("letter_frag","l: "+link_id+" u:" + myUserId);
 	 NetworkManager.getInstnace().getLetterList(getActivity(), link_id, new OnResultListener<ResultLetterList>() {
@@ -83,6 +93,7 @@ public class LetterFragment extends Fragment  {
 		public void onSuccess(ResultLetterList result) {
 			if(result.success.equals("1"))
 			{
+				
 				for(DataLetter dataletter : result.result)
 				{
 					//organize sender
@@ -94,7 +105,7 @@ public class LetterFragment extends Fragment  {
 					{ cardData.type = DataLetter.RECEIVE_LETTER; }
 					
 					cardData.content = dataletter.content;
-					
+					cardData.letter_id = dataletter.letter_id;
 					list.setAdapter(letterAdapter);
 					letterAdapter.add(cardData);
 				}

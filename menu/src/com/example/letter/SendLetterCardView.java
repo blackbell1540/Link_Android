@@ -41,11 +41,11 @@ public class SendLetterCardView extends FrameLayout{
 	}
 	
 	//set Data
-	LetterCardData mData;
-	public void setDataSLetterCard(LetterCardData data)
+	DataLetter mData;
+	public void setDataSLetterCard(DataLetter data)
 	{
 		mData = data;
-		content.setText(data.letterContent);
+		content.setText(data.content);
 		
 	}
 	

@@ -37,15 +37,14 @@ public class ReceiveLetterCardView extends FrameLayout{
 		profile = (ImageView)findViewById(R.id.imageProfileRLetterCard);
 		content = (TextView)findViewById(R.id.textContentRLetterCard);
 		delete = (Button)findViewById(R.id.buttonDeleteRLetterCard);
-		
 	}
 	
 	//set Data
-	LetterCardData mData;
-	public void setDataRLetterCard(LetterCardData data)
+	DataLetter mData;
+	public void setDataRLetterCard(DataLetter data)
 	{
 		mData = data;
-		content.setText(data.letterContent);
+		content.setText(data.content);
 		
 	}
 	

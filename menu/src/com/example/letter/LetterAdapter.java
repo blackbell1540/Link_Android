@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 public class LetterAdapter extends BaseAdapter{
 
 	//item array list
-	ArrayList<LetterCardData> items = new ArrayList<LetterCardData>();
+	ArrayList<DataLetter> items = new ArrayList<DataLetter>();
 	Context mContext;
 	
 	//type
@@ -22,11 +22,14 @@ public class LetterAdapter extends BaseAdapter{
 		this.mContext = mContext;
 	}
 	
-	public void add(LetterCardData item)
+	public void add(DataLetter item)
 	{
 		items.add(item);
 		notifyDataSetChanged();
 	}
+	
+	public void clear()
+	{ items.clear(); }
 	
 	public int getViewTypeCount()
 	{ return TYPE_COUNT; }
@@ -34,10 +37,10 @@ public class LetterAdapter extends BaseAdapter{
 	public int getItemViewType(int position)
 	{
 		switch (items.get(position).type) {
-		case LetterCardData.RECEIVE_LETTER:
+		case DataLetter.RECEIVE_LETTER:
 			return RECEIVE_LETTER;
 
-		case LetterCardData.SEND_LETTER:
+		case DataLetter.SEND_LETTER:
 			return SEND_LETTER;
 		default:
 			return TYPE_COUNT;

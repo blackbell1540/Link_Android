@@ -1,22 +1,26 @@
 package com.example.letter;
 
-import com.example.menu.R;
-import com.example.menu.R.id;
-import com.example.menu.R.layout;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.menu.NetworkManager;
+import com.example.menu.NetworkManager.OnResultListener;
+import com.example.menu.R;
+import com.google.android.gms.common.SignInButton;
 
 public class ReadLetterActivity extends Activity {
 
 	//views
 	ImageView imageProfile;
 	TextView textDate, textContent;
-	
-	int position = 0;
+	Button btn;
+	int letter_id;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,11 +32,49 @@ public class ReadLetterActivity extends Activity {
 	    textDate = (TextView)findViewById(R.id.textLetterDate);
 	    textContent = (TextView)findViewById(R.id.textLetterContent);
 	    
-	    //getIntent
+	    //getIntent - letter_id
 	    Intent intent = getIntent();
-	    position = intent.getIntExtra(LetterFragment.SELECTED_CARD_NUMBER, 0);
+	    letter_id = intent.getIntExtra(LetterFragment.SELECTED_CARD_NUMBER, 0);
 	    
-	    textContent.setText("Item" + position + "clicked");
+	    //button Back
+	    btn = (Button)findViewById(R.id.buttonBack);
+	    btn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+	    
+	    initData();
+	}
+	
+	public void initData()
+	{
+		NetworkManager.getInstnace().getLetter(ReadLetterActivity.this, letter_id, new OnResultListener<ResultLetter>() {
+			
+			@Override
+			public void onSuccess(ResultLetter result) {
+				if(result.success.equals("1"))
+				{
+					String letterContent = result.result.get(0).content;
+					String letterDate = result.result.get(0).date.substring(0, 10);
+					
+					textDate.setText(letterDate);
+					textContent.setText(letterContent);
+				}else
+				{
+					Log.i("readLetter", result.message);
+				}
+				
+			}
+			
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 }
