@@ -236,7 +236,7 @@ public class NetworkManager {
 	}
 	
 	//8. delete letter
-	public static final String DELETE_LETTER = SERVER + "letter/deleteletter";
+	public static final String DELETE_LETTER = SERVER + "/letter/deleteletter";
 	public void deleteLetter(Context context, int letter_id, final OnResultListener<ResultDelLetter> listener)
 	{
 		RequestParams params = new RequestParams();
