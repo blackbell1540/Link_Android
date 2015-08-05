@@ -77,6 +77,42 @@ public class SharedPreferenceManager {
 		mEditor.commit();
 	}
 
+	//user email
+	private static final String USER_MAIL = "user_mail";
+	public String mEmail;
+	
+	public String getUserEmail()
+	{
+		if(mEmail == null)
+		{ mEmail = mUser.getString(USER_MAIL, null); }
+		return mEmail;
+	}
+	
+	public void setUserEmail(String mail)
+	{
+		mEmail = mail;
+		mEditor.putString(USER_MAIL, mail);
+		mEditor.commit();
+	}
+	
+	//user phone_number
+	private static final String USER_PHONE = "user_phone";
+	public String mUserPhone;
+	
+	public String getUserPhone()
+	{
+		if(mUserPhone == null)
+		{ mUserPhone = mUser.getString(USER_PHONE, null); }
+		return mUserPhone;
+	}
+	
+	public void setUserPhone(String phone)
+	{
+		mUserPhone = phone;
+		mEditor.putString(USER_PHONE, phone);
+		mEditor.commit();
+	}
+	
 	//user link_id
 	private static final String LINK_ID = "link_id";
 	public int mLinkId;

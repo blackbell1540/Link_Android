@@ -102,8 +102,8 @@ public class NetworkManager {
 			@Override
 			public void onSuccess(int statusCode,
 					org.apache.http.Header[] headers, String responseString) {
-				// TODO Auto-generated method stub
-				
+				LoginResult result = gson.fromJson(responseString, LoginResult.class);
+				listener.onSuccess(result);
 			}
 		});
 	}
@@ -111,7 +111,7 @@ public class NetworkManager {
 	public static final String FIND_PARTNER = SERVER + "/link/findpartner";
 	public void findPartner(Context context, String partner_mail, int user_id, final OnResultListener<FindPartnerResult> listener){
 		RequestParams params = new RequestParams();
-		params.put("partner_email", partner_mail);
+		params.put("partner_mail", partner_mail);
 		params.put("user_id", ""+user_id);
 		
 		client.post(context, FIND_PARTNER, params, new TextHttpResponseHandler() {
@@ -156,6 +156,34 @@ public class NetworkManager {
 			}
 		});
 	}
+	
+	//4.reply request
+	public static final String REPLY_REQ = SERVER + "/link/reply";
+	public void replyReqest(Context context, int user_id, String user_reply, int sender, final OnResultListener<ReplyReqResult> onResultListener)
+	{
+		RequestParams params = new RequestParams();
+		params.put("user_id", ""+user_id);
+		params.put("user_reply", user_reply);
+		params.put("request_id", ""+sender);
+		
+		client.post(context, REPLY_REQ, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) {
+				ReplyReqResult result = gson.fromJson(responseString, ReplyReqResult.class);
+				onResultListener.onSuccess(result);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
 	
 	//5.letter list
 	public static final String LETTER_LIST = SERVER + "/letter/letterlist";

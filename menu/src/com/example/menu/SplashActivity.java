@@ -4,38 +4,105 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.menu.NetworkManager.OnResultListener;
 
 public class SplashActivity extends Activity {
 
 	//Handler
 	Handler mHandler = new Handler();
+	
+	String e_mail;
+	String phone_number;
+	int request;
+	int user_id;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-		String start = "Y";
-				//SharedPreferenceManager.getInstance().getIsSignUp();
-		String link = "Y";
-		//SharedPreferenceManager.getInstance().getIsLinked();
 		
+		//sign up check
+		String start = SharedPreferenceManager.getInstance().getIsSignUp();
+
+		//link check
+		String link = SharedPreferenceManager.getInstance().getIsLinked();
+
 		//already signUP
 		if(start.equals("Y"))
 		{	
+			//get user info
+			e_mail = SharedPreferenceManager.getInstance().getUserEmail();
+			phone_number = SharedPreferenceManager.getInstance().getUserPhone();
+			user_id = SharedPreferenceManager.getInstance().getUserId();
+			
+			Login();
+						
 			//not linked - waiting
 			if(link.equals("N"))
-			{	moveWaiting(); }
+			{
+				checkMyWaiting();
+				
+				//request - 0 : no send/receive
+				//move SignUp & find partner
+				if(request == 0)
+				{ moveSignUp(); }
+				else
+				{ moveWaiting(); }
+
+			}
 			else  //link already
 			{ moveHome(); }
 		}
 		else   //sign up not yet
-		{	
-			moveLogin();
-		}
+		{ moveLogin(); }
 		
 	}
+	
+	//login
+	private void Login()
+	{
+		NetworkManager.getInstnace().getUserLoginJoin(SplashActivity.this, e_mail, phone_number, new OnResultListener<LoginResult>() {
+			
+			@Override
+			public void onSuccess(LoginResult result) {
+				if(result.success.equals("1"))
+				{
+					SharedPreferenceManager.getInstance().setUserId(result.result);
+					SharedPreferenceManager.getInstance().setIsSignUp("Y");
+				}
+			}
+			
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
 
+	//check my req
+	private void checkMyWaiting()
+	{
+		NetworkManager.getInstnace().checkReq(SplashActivity.this, user_id, new OnResultListener<CheckReqResult>() {
+			
+			@Override
+			public void onSuccess(CheckReqResult result) {
+				if(result.success.equals("1"))
+				{ request = result.result.get(0).request; }
+				else
+				{ Log.i("request", result.message); }
+			}
+			
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}	
 	
 	//move Main
 	private void moveHome()
@@ -77,6 +144,20 @@ public class SplashActivity extends Activity {
 			@Override
 			public void run() {
 				Intent intent = new Intent(SplashActivity.this, WaitingActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		}, 1000);
+	}
+	
+	//moveFindPartner
+	private void moveSignUp()
+	{
+		mHandler.postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				Intent intent = new Intent(SplashActivity.this, SignUpActivity.class);
 				startActivity(intent);
 				finish();
 			}

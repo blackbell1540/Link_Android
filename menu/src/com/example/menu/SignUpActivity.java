@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.menu.NetworkManager.OnResultListener;
 
 public class SignUpActivity extends Activity{
 
 	//views
 	EditText editFindPartner, editInvitePartner;
 	Button buttonFindPartner, buttonInvitePartner;
+	String partenrMail, partnerPhone;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,17 +33,11 @@ public class SignUpActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				//no exist partner
-				
-				//exist partner - waiting
-				String waiting = SharedPreferenceManager.getInstance().getIsLinked();
-				if(waiting.equals("N"))
-				{
-					Intent intent = new Intent(SignUpActivity.this, WaitingActivity.class);
-					startActivity(intent);
-					finish();
-				}
-				
+				partenrMail = editFindPartner.getText().toString();
+				if(partenrMail.length() != 0)
+				{ findPartner(); }
+				else
+				{ Toast.makeText(SignUpActivity.this, "상대방의 email을 입력해주세요", Toast.LENGTH_SHORT).show(); }
 			}
 		});
 	    
@@ -49,10 +47,36 @@ public class SignUpActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
 	    
+	}
+	
+	public void findPartner()
+	{
+		int user_id = SharedPreferenceManager.getInstance().getUserId();
+		NetworkManager.getInstnace().findPartner(SignUpActivity.this, partenrMail, user_id, new OnResultListener<FindPartnerResult>() {
+			
+			@Override
+			public void onSuccess(FindPartnerResult result) {
+				if(result.message.equals("OK"))
+				{
+					//move waiting Activity
+					Intent intent = new Intent(SignUpActivity.this, WaitingActivity.class);
+					startActivity(intent);
+					finish();
+				}else
+				{	//toast : there is no partner
+					Toast.makeText(SignUpActivity.this, result.message, Toast.LENGTH_SHORT).show();
+				}
+			}
+			
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 }

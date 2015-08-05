@@ -7,4 +7,5 @@ public class DataUser {
     public int phone_number;
     public String prifile_pic_url;
     public int partner_id;
+    public String email;
 }

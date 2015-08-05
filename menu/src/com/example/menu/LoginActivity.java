@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,11 +36,17 @@ public class LoginActivity extends Activity implements
 	
 	String accountEmail;
 	String phoneNumber;
+	int request;
+	int user_id;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		//get device phone number
+		TelephonyManager telManager = (TelephonyManager)LoginActivity.this.getSystemService(LoginActivity.this.TELEPHONY_SERVICE);
+		phoneNumber = telManager.getLine1Number().substring(3);
 		
 		//client connection
 		mClient = new GoogleApiClient.Builder(this)
@@ -57,12 +65,12 @@ public class LoginActivity extends Activity implements
 			@Override
 			public void onClick(View v) {
 				if(!mResolvingErr)
-				{ mClient.connect(); }
+				{ mClient.connect();  }
 				
 			}
 		});
 		
-
+		
 	}
 	
 	@Override
@@ -84,7 +92,6 @@ public class LoginActivity extends Activity implements
 		@Override
 		public void onConnected(Bundle connectionHint) {
 			accountEmail = Plus.AccountApi.getAccountName(mClient);
-			phoneNumber = "01022994807";
 			Login();
 		}
 	};
@@ -101,11 +108,31 @@ public class LoginActivity extends Activity implements
 				if(result.success.equals("1"))
 				{
 					Toast.makeText(LoginActivity.this, "login result.success", Toast.LENGTH_SHORT).show();
-					SharedPreferenceManager.getInstance().setUserId(result.result);
+					//set inserted_user_id, google_email, phone_number
+					SharedPreferenceManager.getInstance().setUserEmail(accountEmail);
+					SharedPreferenceManager.getInstance().setUserPhone(phoneNumber);
+					user_id = 15;
+					SharedPreferenceManager.getInstance().setUserId(user_id);
+					Log.i("login", accountEmail + " " + phoneNumber);
 					
-					Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-					startActivity(intent);
-					finish();
+					checkMyWaiting();
+					
+					
+					//request - 0 : no send/receive
+					//move SignUp & find partner
+					if(request == 0)
+					{ 
+						Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+						startActivity(intent);
+						finish();
+					}
+					else
+					{ 
+						Intent intent = new Intent(LoginActivity.this, WaitingActivity.class);
+						startActivity(intent);
+						finish();
+					}
+
 				}else
 				{
 					Toast.makeText(LoginActivity.this, "login result.success != 1", Toast.LENGTH_SHORT).show();
@@ -120,6 +147,27 @@ public class LoginActivity extends Activity implements
 			}
 		});
 	}
+	
+	private void checkMyWaiting()
+	{
+		int user_id = SharedPreferenceManager.getInstance().getUserId();
+		NetworkManager.getInstnace().checkReq(LoginActivity.this, user_id, new OnResultListener<CheckReqResult>() {
+			
+			@Override
+			public void onSuccess(CheckReqResult result) {
+				if(result.success.equals("1"))
+				{ request = result.result.get(0).request; }
+				else
+				{ Log.i("request", result.message); }
+			}
+			
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}	
 	
 	//Connect Fail
 	private GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener = new OnConnectionFailedListener() {
