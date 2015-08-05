@@ -13,17 +13,6 @@
         android:layout_marginTop="9dp"
         android:background="#ffaa00" >
 
-        <Button
-            android:id="@+id/buttonDeleteRLetterCard"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="top|right"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_delete"
-            android:focusable="false"
-            android:text="@null" />
-
         <ImageView
             android:id="@+id/imageProfileRLetterCard"
             android:layout_width="70dp"

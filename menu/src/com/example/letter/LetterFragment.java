@@ -1,8 +1,11 @@
 package com.example.letter;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.letter.LetterAdapter.onAdapterItemClickListener;
 import com.example.menu.NetworkManager;
 import com.example.menu.NetworkManager.OnResultListener;
 import com.example.menu.R;
@@ -55,6 +59,7 @@ public class LetterFragment extends Fragment  {
 				
 			}
 		});
+        
         list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -71,6 +76,52 @@ public class LetterFragment extends Fragment  {
 			}
         });
         
+        //delete button click
+        letterAdapter.setOnAdapterItemClickListener(new onAdapterItemClickListener() {
+			
+			@Override
+			public void onAdapterItemClick(LetterAdapter adapter, View view,
+					DataLetter data) {
+				//letter_data
+				final int letter_id = data.letter_id;
+				
+				//alerdialog to confirm delete
+				AlertDialog.Builder dial_confirm = new AlertDialog.Builder(getActivity());
+				dial_confirm.setMessage("삭제하시겠습니까?").setCancelable(false).setPositiveButton("삭제", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Log.i("delete button click", "positivebutton click " + letter_id);
+						//positive button click - require delete
+						NetworkManager.getInstnace().deleteLetter(getActivity(), letter_id, new OnResultListener<ResultDelLetter>() {
+							
+							@Override
+							public void onSuccess(ResultDelLetter result) {
+								if(result.success.equals("1"))
+								{ Toast.makeText(getActivity(), "삭제되었습니다.", Toast.LENGTH_SHORT).show(); }
+								letterAdapter.clear();
+								initData();
+							}
+							
+							@Override
+							public void onFail(int code) {
+								// TODO Auto-generated method stub
+								
+							}
+						});
+					}
+				}).setNegativeButton("취소", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						return;
+					}
+				});
+				
+				AlertDialog dial =  dial_confirm.create();
+				dial.show();
+			}
+		});
         return V;
         
 

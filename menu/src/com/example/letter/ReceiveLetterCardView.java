@@ -28,15 +28,15 @@ public class ReceiveLetterCardView extends FrameLayout{
 	//views
 	ImageView profile;
 	TextView content;
-	Button delete;
 	
+
 	//init data
 	private void init()
 	{
 		LayoutInflater.from(getContext()).inflate(R.layout.item_letter_receive, this);
 		profile = (ImageView)findViewById(R.id.imageProfileRLetterCard);
 		content = (TextView)findViewById(R.id.textContentRLetterCard);
-		delete = (Button)findViewById(R.id.buttonDeleteRLetterCard);
+		
 	}
 	
 	//set Data

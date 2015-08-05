@@ -1,16 +1,18 @@
 package com.example.letter;
 
-import com.example.menu.R;
-import com.example.menu.R.id;
-import com.example.menu.R.layout;
-
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.menu.NetworkManager;
+import com.example.menu.NetworkManager.OnResultListener;
+import com.example.menu.R;
 
 public class SendLetterCardView extends FrameLayout{
 
@@ -30,6 +32,16 @@ public class SendLetterCardView extends FrameLayout{
 	TextView content;
 	Button delete;
 	
+	//delete button interface
+	public interface onDeleteClickListener{
+		public void onDeleteClick(View view, DataLetter data);
+	}
+	
+	onDeleteClickListener deleListener;
+	
+	public void setOnDeleteClickListener(onDeleteClickListener listener)
+	{ deleListener = listener; }
+	
 	//init data
 	private void init()
 	{
@@ -37,6 +49,14 @@ public class SendLetterCardView extends FrameLayout{
 		profile = (ImageView)findViewById(R.id.imageProfileSLetterCard);
 		content = (TextView)findViewById(R.id.textContentSLetterCard);
 		delete = (Button)findViewById(R.id.buttonDeleteSLetterCard);
+		delete.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(deleListener != null)
+				{ deleListener.onDeleteClick(SendLetterCardView.this, mData);}
+			}
+		});
 		
 	}
 	

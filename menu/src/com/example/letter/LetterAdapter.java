@@ -3,11 +3,12 @@ package com.example.letter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class LetterAdapter extends BaseAdapter{
+public class LetterAdapter extends BaseAdapter implements SendLetterCardView.onDeleteClickListener{
 
 	//item array list
 	ArrayList<DataLetter> items = new ArrayList<DataLetter>();
@@ -65,6 +66,16 @@ public class LetterAdapter extends BaseAdapter{
 		return position;
 	}
 
+	//delete interface
+	public interface onAdapterItemClickListener{
+		public void onAdapterItemClick(LetterAdapter adapter, View view, DataLetter data);
+	}
+	
+	onAdapterItemClickListener itemListener;
+	
+	public void setOnAdapterItemClickListener(onAdapterItemClickListener listener)
+	{ itemListener = listener; }
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		switch (getItemViewType(position)) {
@@ -75,6 +86,7 @@ public class LetterAdapter extends BaseAdapter{
 			{ Rview = (ReceiveLetterCardView)convertView; }
 			else
 			{ Rview = new ReceiveLetterCardView(mContext); }
+			
 			Rview.setDataRLetterCard(items.get(position));
 			return Rview;
 		}
@@ -86,6 +98,7 @@ public class LetterAdapter extends BaseAdapter{
 			else
 			{ Sview = new SendLetterCardView(mContext); }
 			Sview.setDataSLetterCard(items.get(position));
+			Sview.setOnDeleteClickListener(this);
 			return Sview;
 		}
 		default:
@@ -99,6 +112,12 @@ public class LetterAdapter extends BaseAdapter{
 			return Rview;
 		}
 		}
+	}
+
+	@Override
+	public void onDeleteClick(View view, DataLetter letter) {
+		if(itemListener != null)
+		{ itemListener.onAdapterItemClick(this, view, letter); }
 	}
 
 }
