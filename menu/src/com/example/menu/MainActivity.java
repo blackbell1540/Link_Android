@@ -1,7 +1,9 @@
 package com.example.menu;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -30,6 +32,8 @@ public class MainActivity extends SlidingFragmentActivity implements MenuFragmen
 		setContentView(R.layout.activity_main);
 		setBehindContentView(R.layout.menu_container);
 
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setBackgroundDrawable(new ColorDrawable(0xFF6600));
 		//tab image
 		tHome = new ImageView(MainActivity.this);
 		tGallery = new ImageView(MainActivity.this);

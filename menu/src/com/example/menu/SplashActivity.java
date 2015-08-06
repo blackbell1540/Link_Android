@@ -28,6 +28,7 @@ public class SplashActivity extends Activity {
 		String start = SharedPreferenceManager.getInstance().getIsSignUp();
 
 		//link check
+		SharedPreferenceManager.getInstance().setIsLinked("Y");
 		String link = SharedPreferenceManager.getInstance().getIsLinked();
 
 		SharedPreferenceManager.getInstance().setUserId(17);
