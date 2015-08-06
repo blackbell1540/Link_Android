@@ -34,10 +34,10 @@ public class LoginActivity extends Activity implements
 	private ConnectionResult mConnectionResult;
 	private ProgressDialog mConnectionProgressDialog;
 	
-	String accountEmail;
-	String phoneNumber;
-	int request;
-	int user_id;
+	String accountEmail;	//google account email
+	String phoneNumber;		//device phone number
+	int request;			//check request value - move next stage
+	int user_id;			//get user_id after join, check request with user_id
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class LoginActivity extends Activity implements
 		
 		//get device phone number
 		TelephonyManager telManager = (TelephonyManager)LoginActivity.this.getSystemService(LoginActivity.this.TELEPHONY_SERVICE);
-		phoneNumber = telManager.getLine1Number().substring(3);
+		phoneNumber = telManager.getLine1Number().substring(3);	//0~2 : +82
 		
 		//client connection
 		mClient = new GoogleApiClient.Builder(this)
@@ -91,8 +91,9 @@ public class LoginActivity extends Activity implements
 		
 		@Override
 		public void onConnected(Bundle connectionHint) {
-			accountEmail = Plus.AccountApi.getAccountName(mClient);
-			Login();
+			//after connecting
+			accountEmail = Plus.AccountApi.getAccountName(mClient);	//get account email
+			Login();												//login or join with email
 		}
 	};
 	
@@ -111,23 +112,25 @@ public class LoginActivity extends Activity implements
 					//set inserted_user_id, google_email, phone_number
 					SharedPreferenceManager.getInstance().setUserEmail(accountEmail);
 					SharedPreferenceManager.getInstance().setUserPhone(phoneNumber);
-					user_id = 15;
+					user_id = 15;	//!!!server will not send user_id when login!!!
 					SharedPreferenceManager.getInstance().setUserId(user_id);
+					SharedPreferenceManager.getInstance().setIsSignUp("Y");
+					
 					Log.i("login", accountEmail + " " + phoneNumber);
 					
+					//check request status
 					checkMyWaiting();
 					
 					
-					//request - 0 : no send/receive
-					//move SignUp & find partner
+					//request - 0 : no send/receive	
 					if(request == 0)
-					{ 
+					{ 	//move SignUp & find partner
 						Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
 						startActivity(intent);
 						finish();
 					}
 					else
-					{ 
+					{	//move waiting 
 						Intent intent = new Intent(LoginActivity.this, WaitingActivity.class);
 						startActivity(intent);
 						finish();
@@ -150,7 +153,8 @@ public class LoginActivity extends Activity implements
 	
 	private void checkMyWaiting()
 	{
-		int user_id = SharedPreferenceManager.getInstance().getUserId();
+		//int user_id = SharedPreferenceManager.getInstance().getUserId();
+		
 		NetworkManager.getInstnace().checkReq(LoginActivity.this, user_id, new OnResultListener<CheckReqResult>() {
 			
 			@Override

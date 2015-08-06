@@ -30,6 +30,7 @@ public class SplashActivity extends Activity {
 		//link check
 		String link = SharedPreferenceManager.getInstance().getIsLinked();
 
+		SharedPreferenceManager.getInstance().setUserId(17);
 		//already signUP
 		if(start.equals("Y"))
 		{	
@@ -40,19 +41,9 @@ public class SplashActivity extends Activity {
 			
 			Login();
 						
-			//not linked - waiting
+			//not linked - find or waiting
 			if(link.equals("N"))
-			{
-				checkMyWaiting();
-				
-				//request - 0 : no send/receive
-				//move SignUp & find partner
-				if(request == 0)
-				{ moveSignUp(); }
-				else
-				{ moveWaiting(); }
-
-			}
+			{ checkMyWaiting(); }
 			else  //link already
 			{ moveHome(); }
 		}
@@ -70,7 +61,7 @@ public class SplashActivity extends Activity {
 			public void onSuccess(LoginResult result) {
 				if(result.success.equals("1"))
 				{
-					SharedPreferenceManager.getInstance().setUserId(result.result);
+	//				SharedPreferenceManager.getInstance().setUserId(result.result);
 					SharedPreferenceManager.getInstance().setIsSignUp("Y");
 				}
 			}
@@ -91,7 +82,17 @@ public class SplashActivity extends Activity {
 			@Override
 			public void onSuccess(CheckReqResult result) {
 				if(result.success.equals("1"))
-				{ request = result.result.get(0).request; }
+				{ 
+					request = result.result.get(0).request;
+					Log.i("request", request + " " + user_id );
+					//request - 0 : no send/receive
+					//move SignUp & find partner
+					Log.i("request code",""+request);
+					if(request == 0)
+					{ moveSignUp(); }
+					else
+					{ moveWaiting(); }
+				}
 				else
 				{ Log.i("request", result.message); }
 			}

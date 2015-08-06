@@ -34,6 +34,7 @@ public class SignUpActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				partenrMail = editFindPartner.getText().toString();
+				
 				if(partenrMail.length() != 0)
 				{ findPartner(); }
 				else
@@ -53,9 +54,11 @@ public class SignUpActivity extends Activity{
 	    
 	}
 	
+	//find partner
 	public void findPartner()
 	{
-		int user_id = SharedPreferenceManager.getInstance().getUserId();
+		//int user_id = SharedPreferenceManager.getInstance().getUserId();
+		int user_id = 17;
 		NetworkManager.getInstnace().findPartner(SignUpActivity.this, partenrMail, user_id, new OnResultListener<FindPartnerResult>() {
 			
 			@Override
@@ -63,6 +66,7 @@ public class SignUpActivity extends Activity{
 				if(result.message.equals("OK"))
 				{
 					//move waiting Activity
+					SharedPreferenceManager.getInstance().setUserId(17);
 					Intent intent = new Intent(SignUpActivity.this, WaitingActivity.class);
 					startActivity(intent);
 					finish();

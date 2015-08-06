@@ -26,40 +26,36 @@ public class WaitingActivity extends Activity{
 	    //check my waiting status
 	    user_id = SharedPreferenceManager.getInstance().getUserId();
 	    checkMyWaiting();
-	    
-	    //if I'm receiving request
-	    if(request != user_id)
-	    {
-	    	//who is request sender
-	    	checkReqSender(request);
-	    	
-	    	AlertDialog.Builder dial_request = new AlertDialog.Builder(WaitingActivity.this);
-	    	dial_request.setMessage(sender + "´ÔÀÇ ¿¬°á ¿äÃ»ÀÌ ÀÖ½À´Ï´Ù.").setCancelable(false)
-	    			.setPositiveButton("½Â³«", new OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface arg0, int arg1) {
-							reply = "yes";
-							replyReq(reply);
-							Intent intent = new Intent(WaitingActivity.this, MainActivity.class);
-							startActivity(intent);
-							finish();
-						}
-					}).setNegativeButton("°ÅÀý",new OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							reply = "no";
-							replyReq(reply);
-							Intent intent = new Intent(WaitingActivity.this, SignUpActivity.class);
-							startActivity(intent);
-							finish();							
-						}
-					});
-	    	AlertDialog dial = dial_request.create();
-	    	dial.show();
-	    	
-	    }
+	}
+	
+	public void receiveReq()
+	{    	
+    	AlertDialog.Builder dial_request = new AlertDialog.Builder(WaitingActivity.this);
+    	dial_request.setMessage(sender + "´ÔÀÇ ¿¬°á ¿äÃ»ÀÌ ÀÖ½À´Ï´Ù.").setCancelable(false)
+    			.setPositiveButton("½Â³«", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						reply = "yes";
+						replyReq(reply);
+						SharedPreferenceManager.getInstance().setIsLinked("Y");
+						Intent intent = new Intent(WaitingActivity.this, MainActivity.class);
+						startActivity(intent);
+						finish();
+					}
+				}).setNegativeButton("°ÅÀý",new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						reply = "no";
+						replyReq(reply);
+						Intent intent = new Intent(WaitingActivity.this, SignUpActivity.class);
+						startActivity(intent);
+						finish();							
+					}
+				});
+    	AlertDialog dial = dial_request.create();
+    	dial.show();
 	}
 	
 	public void checkReqSender(int user_id)
@@ -69,6 +65,7 @@ public class WaitingActivity extends Activity{
 			@Override
 			public void onSuccess(UserInfo result) {
 				sender = result.result.get(0).email;
+				receiveReq();
 			}
 			
 			@Override
@@ -103,7 +100,15 @@ public class WaitingActivity extends Activity{
 			@Override
 			public void onSuccess(CheckReqResult result) {
 				if(result.success.equals("1"))
-				{ request = result.result.get(0).request; }
+				{ 
+					request = result.result.get(0).request;
+				    //if I'm receiving request
+				    if(request != user_id)
+				    {
+						//who is request sender
+				    	checkReqSender(request);
+				    }
+				}
 				else
 				{ Log.i("request", result.message); }
 			}
