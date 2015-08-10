@@ -1,7 +1,17 @@
 package com.example.menu.profile;
 
+import java.io.File;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +22,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.menu.NetworkManager;
+import com.example.menu.NetworkManager.OnResultListener;
 import com.example.menu.R;
+import com.example.menu.UserInfo;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class FragmentOptionProfile extends DialogFragment
 {
@@ -24,7 +39,13 @@ public class FragmentOptionProfile extends DialogFragment
 	EditText editName, editBirth;
 	Button btn;
 	LinearLayout showProfile, modiProfile, showButton, modiButton;
-	int userId = 1;
+	File mSavedFile;
+	ImageLoader mLoader;
+	
+	int userId;
+	
+	public static final int REQUEST_CODE_CROP = 0;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,7 +62,7 @@ public class FragmentOptionProfile extends DialogFragment
 		getDialog().getWindow().getAttributes().x = 0;
 		getDialog().getWindow().getAttributes().y = 0;
 		
-		//inflate
+		//inflate - show profile
 		View view = inflater.inflate(R.layout.fragment_option_profile, container, false);
 		
 		//find views
@@ -56,8 +77,24 @@ public class FragmentOptionProfile extends DialogFragment
 		modiProfile = (LinearLayout)view.findViewById(R.id.ModiProfile);
 		showButton = (LinearLayout)view.findViewById(R.id.ShowButton);
 		modiButton = (LinearLayout)view.findViewById(R.id.ModiButton);
+		mLoader = ImageLoader.getInstance();
 		
 		initUserInfo();
+		
+		//profile image
+		modiProfile.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent photoPicker = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				photoPicker.setType("image/*");
+				photoPicker.putExtra("crop", "true");
+				photoPicker.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+				photoPicker.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+				startActivityForResult(photoPicker, REQUEST_CODE_CROP);
+			}
+		});
+		
 		
 		//modify button click
 		btn = (Button)view.findViewById(R.id.buttonModify);
@@ -73,7 +110,7 @@ public class FragmentOptionProfile extends DialogFragment
 		});
 		
 		//ok button click
-		btn = (Button)view.findViewById(R.id.buttonThemeCancel);
+		btn = (Button)view.findViewById(R.id.buttonCancel);
 		btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -104,7 +141,60 @@ public class FragmentOptionProfile extends DialogFragment
 			}
 		});
 		
+		if(savedInstanceState != null)
+		{
+			String file = savedInstanceState.getString("filename");
+			if(file != null)
+			{ mSavedFile = new File(file); }
+		}
+		
 		return view;
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == REQUEST_CODE_CROP && resultCode == Activity.RESULT_OK)
+		{
+			Bitmap bp = BitmapFactory.decodeFile(mSavedFile.getAbsolutePath());
+			imageProfile.setImageBitmap(bp);
+			uploadImage();
+		}
+	}
+	
+	private Uri getTempUri()
+	{
+		mSavedFile = new File(Environment.getExternalStorageDirectory(), "temp_" + System.currentTimeMillis()/1000);
+		return Uri.fromFile(mSavedFile);
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		if(mSavedFile != null)
+		{ outState.putString("filename", mSavedFile.getAbsolutePath());}
+	}
+	
+	//upload image
+	public void uploadImage()
+	{
+		NetworkManager.getInstnace().upLoadImage(getActivity(), mSavedFile.getAbsolutePath(), new OnResultListener<ImageUpload>() {
+			
+			@Override
+			public void onSuccess(ImageUpload result) {
+				if(result.success.equals("1"))
+				{ Log.i("iamgeupload", result.message); }
+				else
+				{ Log.i("iamgeupload", result.message); }
+			}
+			
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 	//modify button listener
@@ -124,32 +214,34 @@ public class FragmentOptionProfile extends DialogFragment
 	}
 
 	private void initUserInfo(){
-//		NetworkManager.getInstnace().getUserInfo(getActivity(), userId, new OnResultListener<UserInfo>() {
-//			
-//			@Override
-//			public void onSuccess(UserInfo user) {
-//				if(user.success.equals("1"))
-//				{
-//					String userName = user.result.get(0).user_name;
-//					int userPhoneNumber = user.re	nsult.get(0).phone_number;
-//					
-//					textName.setText(userName);
-//					textPhone.setText(""+userPhoneNumber);
-//					
-//				}else
-//				{ Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show(); }
-//			}
-//			
-//			@Override
-//			public void onFail(int code) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//		});
+		NetworkManager.getInstnace().getUserInfo(getActivity(), userId, new OnResultListener<UserInfo>() {
+			
+			@Override
+			public void onSuccess(UserInfo user) {
+				if(user.success.equals("1"))
+				{
+					String userName = user.result.get(0).user_name;
+					int userPhoneNumber = user.result.get(0).phone_number;
+					
+					textName.setText(userName);
+					textPhone.setText(""+userPhoneNumber);
+					
+				}else
+				{ Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show(); }
+			}
+			
+			@Override
+			public void onFail(int code) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 	private void updateUserProfile()
-	{}
+	{
+		
+	}
 
 
 }

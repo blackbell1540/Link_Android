@@ -1,5 +1,7 @@
 package com.example.menu;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -24,12 +26,14 @@ import com.example.letter.ResultLetterList;
 import com.example.letter.ResultWriteLetter;
 import com.example.menu.notice.ResultNotice;
 import com.example.menu.optiondropout.ResultDropOut;
+import com.example.menu.profile.ImageUpload;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.MySSLSocketFactory;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 
 public class NetworkManager {
@@ -465,6 +469,36 @@ public class NetworkManager {
 				ResultDropOut result = gson.fromJson(responseString, ResultDropOut.class);
 				listener.onSuccess(result);
 				
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	//19. image upload
+	public static final String IMAGE_UPLOAD = SERVER + "/user/image";
+	public void upLoadImage(Context context, String upFile, final OnResultListener<ImageUpload> listener)
+	{
+		RequestParams params = new RequestParams();
+		try {
+			params.put("user_profile_url", new File(upFile));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		client.post(context, IMAGE_UPLOAD, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) {
+				ImageUpload result = gson.fromJson(responseString, ImageUpload.class);
+				listener.onSuccess(result);
 			}
 			
 			@Override

@@ -2882,6 +2882,7 @@ containing a value of this type.
         public static final int buttonAddLetter=0x7f0900a4;
         public static final int buttonBack=0x7f09008b;
         public static final int buttonBeforeTheme=0x7f0900c1;
+        public static final int buttonCancel=0x7f0900bb;
         public static final int buttonDeleteSLetterCard=0x7f0900db;
         public static final int buttonDialCancel=0x7f0900ab;
         public static final int buttonFindPartner=0x7f090097;
@@ -2893,7 +2894,6 @@ containing a value of this type.
         public static final int buttonPanel=0x7f09005d;
         public static final int buttonSetting=0x7f0900ac;
         public static final int buttonSignIn=0x7f090084;
-        public static final int buttonThemeCancel=0x7f0900bb;
         public static final int buttonThemeOK=0x7f0900c8;
         public static final int buttonWriteLetter=0x7f09009b;
         public static final int buyButton=0x7f09001b;

@@ -81,7 +81,7 @@ public class FragmentOptionTheme extends DialogFragment {
 		});
 		
 		//button cancel click
-		btn = (Button)view.findViewById(R.id.buttonThemeCancel);
+		btn = (Button)view.findViewById(R.id.buttonCancel);
 		btn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
