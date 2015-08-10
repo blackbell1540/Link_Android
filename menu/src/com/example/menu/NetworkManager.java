@@ -22,8 +22,8 @@ import com.example.letter.ResultDelLetter;
 import com.example.letter.ResultLetter;
 import com.example.letter.ResultLetterList;
 import com.example.letter.ResultWriteLetter;
-import com.example.menu.notice.DataNotice;
 import com.example.menu.notice.ResultNotice;
+import com.example.menu.optiondropout.ResultDropOut;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.MySSLSocketFactory;
@@ -443,6 +443,32 @@ public class NetworkManager {
 			
 			@Override
 			public void onFailure(int statusCode, org.apache.http.Header[] headers,
+					String responseString, Throwable throwable) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	//18. drop out
+	public static final String DROP_OUT = SERVER + "/user/dropout";
+	public void dropOut(Context context, int user_id, final OnResultListener<ResultDropOut> listener)
+	{
+		RequestParams params = new RequestParams();
+		params.put("user_id", user_id);
+		
+		client.post(context, DROP_OUT, params, new TextHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					String responseString) {
+				ResultDropOut result = gson.fromJson(responseString, ResultDropOut.class);
+				listener.onSuccess(result);
+				
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
 					String responseString, Throwable throwable) {
 				// TODO Auto-generated method stub
 				
