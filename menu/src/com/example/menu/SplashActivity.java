@@ -25,19 +25,23 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.activity_splash);
 		
 		//sign up check
-		String start = SharedPreferenceManager.getInstance().getIsSignUp();
+		//String start = SharedPreferenceManager.getInstance().getIsSignUp();
+		String start = "Y";
 
 		//link check
-		SharedPreferenceManager.getInstance().setIsLinked("Y");
+		//SharedPreferenceManager.getInstance().setIsLinked("Y");
 		String link = SharedPreferenceManager.getInstance().getIsLinked();
 
 		//already signUP
 		if(start.equals("Y"))
 		{	
 			//get user info
-			e_mail = SharedPreferenceManager.getInstance().getUserEmail();
-			phone_number = SharedPreferenceManager.getInstance().getUserPhone();
-			user_id = SharedPreferenceManager.getInstance().getUserId();
+			//e_mail = SharedPreferenceManager.getInstance().getUserEmail();
+			//phone_number = SharedPreferenceManager.getInstance().getUserPhone();
+			//user_id = SharedPreferenceManager.getInstance().getUserId();
+			e_mail = "osoribal@gmail.com";
+			phone_number = "01022804436";
+			user_id = 22;
 			
 			Login();
 						
@@ -90,6 +94,11 @@ public class SplashActivity extends Activity {
 					Log.i("request code",""+request);
 					if(request == 0)
 					{ moveSignUp(); }
+					else if(request == -1)
+		               {
+		                  SharedPreferenceManager.getInstance().setIsLinked("Y");
+		                  moveHome();
+		               }
 					else
 					{ moveWaiting(); }
 				}
@@ -114,6 +123,20 @@ public class SplashActivity extends Activity {
 			public void run() {
 				//set signUp Yes
 				SharedPreferenceManager.getInstance().setIsSignUp("Y");
+				NetworkManager.getInstnace().getUserInfo(SplashActivity.this, user_id, new OnResultListener<UserInfo>() {
+                    
+                    @Override
+                    public void onSuccess(UserInfo result) {
+                       int link_id = result.result.get(0).link_id;
+                       SharedPreferenceManager.getInstance().setLinkId(link_id);
+                    }
+                    
+                    @Override
+                    public void onFail(int code) {
+                       // TODO Auto-generated method stub
+                       
+                    }
+                 });
 				//startActivity
 				Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 				startActivity(intent);

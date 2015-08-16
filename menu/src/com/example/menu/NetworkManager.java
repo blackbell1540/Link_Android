@@ -83,9 +83,10 @@ public class NetworkManager {
 	
 	
 	Gson gson = new Gson();
-	public static final String SERVER = "http://192.168.219.90:3000";
-	//public static final String SERVER = "http://125.180.57.26:12345";
-	int gid = 1, mid = 1;
+	//public static final String SERVER = "http://192.168.219.90:3000";
+	public static final String SERVER = "http://125.180.57.26:12345";
+	int gid = SharedPreferenceManager.getInstance().getLinkId();
+	int mid = SharedPreferenceManager.getInstance().getUserId();
 
 	//1. user login & join
 	public static final String USER_LOGIN_JOIN = SERVER + "/user/login";
@@ -427,7 +428,8 @@ public class NetworkManager {
 			@Override
 			public void onSuccess(int statusCode,
 					org.apache.http.Header[] headers, String responseString) {
-				
+	            UserInfo result = gson.fromJson(responseString, UserInfo.class);
+	            listener.onSuccess(result);
 				
 			}
 		});

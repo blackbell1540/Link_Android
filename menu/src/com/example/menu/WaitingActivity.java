@@ -24,7 +24,10 @@ public class WaitingActivity extends Activity{
 	    setContentView(R.layout.acitivity_wating);
 	    
 	    //check my waiting status
+	    SharedPreferenceManager.getInstance().setUserId(22);
 	    user_id = SharedPreferenceManager.getInstance().getUserId();
+	    
+	    
 	    checkMyWaiting();
 	}
 	
@@ -103,11 +106,11 @@ public class WaitingActivity extends Activity{
 				{ 
 					request = result.result.get(0).request;
 				    //if I'm receiving request
-				    if(request != user_id)
+					if(request != user_id)
 				    {
 						//who is request sender
 				    	checkReqSender(request);
-				    }
+				    } 
 				}
 				else
 				{ Log.i("request", result.message); }

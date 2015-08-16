@@ -51,7 +51,8 @@ public class ChattingActivity extends FragmentActivity {
 	Socket socket;
 	FragmentManager fm = getSupportFragmentManager();
 	
-	int gid = 1, mid = 1;
+	int gid = SharedPreferenceManager.getInstance().getLinkId();
+	int mid = SharedPreferenceManager.getInstance().getUserId();
 	
 	private static final int REQ_CODE_PICK_IMAGE = 0;
     String filePath = Environment.getExternalStorageDirectory() + "/tempPic.jpg";
@@ -73,15 +74,15 @@ public class ChattingActivity extends FragmentActivity {
         text = (EditText) findViewById(R.id.chat_text);
         
         try {
-        	socket = IO.socket("http://192.168.219.90:3000");
-			//socket = IO.socket("http://125.180.57.26:12345");
+        	//socket = IO.socket("http://192.168.219.90:3000");
+			socket = IO.socket("http://125.180.57.26:12345");
 		} catch (URISyntaxException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         socket.on("message", onMessage);
         socket.connect();
-        socket.emit("join", "1");
+        socket.emit("join", ""+gid);
         
         ok.setOnClickListener(new View.OnClickListener() {
 			
@@ -166,32 +167,34 @@ public class ChattingActivity extends FragmentActivity {
 	    			}
 	    			if (b.sender_id == mid) 
 	    				b.type = b.SEND_BUBBLE;
-	    			else
+	    			else {
 	    				b.type = b.RECEIVE_BUBBLE;
+	    				NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+						NotificationCompat.Builder mCompatBuilder = new NotificationCompat.Builder(ChattingActivity.this);
+						mCompatBuilder.setSmallIcon(R.drawable.ic_launcher);
+						mCompatBuilder.setTicker(b.message);
+						mCompatBuilder.setWhen(System.currentTimeMillis());
+						mCompatBuilder.setContentTitle("message alarm");
+						mCompatBuilder.setContentText(b.message);
+						int notificationValue = 0;
+						if("ON".equals(SharedPreferenceManager.getInstance().getSound())) {
+							notificationValue |= Notification.DEFAULT_SOUND; 
+						}
+						if("ON".equals(SharedPreferenceManager.getInstance().getVibration())) {
+							notificationValue |= Notification.DEFAULT_VIBRATE; 
+						}
+						if(notificationValue == 0) {
+							notificationValue = Notification.DEFAULT_LIGHTS;
+						}
+						mCompatBuilder.setDefaults(notificationValue);
+						mCompatBuilder.setAutoCancel(true);
+						nm.notify(-1, mCompatBuilder.build());
+	    			}
 	    			adapter.add(b);
 	    			adapter.clear();
 					initChatting();
 					
-					NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-					NotificationCompat.Builder mCompatBuilder = new NotificationCompat.Builder(ChattingActivity.this);
-					mCompatBuilder.setSmallIcon(R.drawable.ic_launcher);
-					mCompatBuilder.setTicker(b.message);
-					mCompatBuilder.setWhen(System.currentTimeMillis());
-					mCompatBuilder.setContentTitle("message alarm");
-					mCompatBuilder.setContentText(b.message);
-					int notificationValue = 0;
-					if("ON".equals(SharedPreferenceManager.getInstance().getSound())) {
-						notificationValue |= Notification.DEFAULT_SOUND; 
-					}
-					if("ON".equals(SharedPreferenceManager.getInstance().getVibration())) {
-						notificationValue |= Notification.DEFAULT_VIBRATE; 
-					}
-					if(notificationValue == 0) {
-						notificationValue = Notification.DEFAULT_LIGHTS;
-					}
-					mCompatBuilder.setDefaults(notificationValue);
-					mCompatBuilder.setAutoCancel(true);
-					nm.notify(-1, mCompatBuilder.build());
+					
 	            }
 	        });
 		}
