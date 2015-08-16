@@ -171,6 +171,7 @@ public class ChattingActivity extends FragmentActivity {
 	    			adapter.add(b);
 	    			adapter.clear();
 					initChatting();
+					
 					NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 					NotificationCompat.Builder mCompatBuilder = new NotificationCompat.Builder(ChattingActivity.this);
 					mCompatBuilder.setSmallIcon(R.drawable.ic_launcher);
