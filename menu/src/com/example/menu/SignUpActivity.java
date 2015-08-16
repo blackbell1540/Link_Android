@@ -77,7 +77,6 @@ public class SignUpActivity extends Activity{
 				if(result.message.equals("OK"))
 				{
 					//move waiting Activity
-					SharedPreferenceManager.getInstance().setUserId(17);
 					Intent intent = new Intent(SignUpActivity.this, WaitingActivity.class);
 					startActivity(intent);
 					finish();
