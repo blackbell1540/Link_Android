@@ -25,8 +25,8 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.activity_splash);
 		
 		//sign up check
-		//String start = SharedPreferenceManager.getInstance().getIsSignUp();
-		String start = "Y";
+		String start = SharedPreferenceManager.getInstance().getIsSignUp();
+		//String start = "Y";
 
 		//link check
 		//SharedPreferenceManager.getInstance().setIsLinked("Y");
@@ -36,12 +36,12 @@ public class SplashActivity extends Activity {
 		if(start.equals("Y"))
 		{	
 			//get user info
-			//e_mail = SharedPreferenceManager.getInstance().getUserEmail();
-			//phone_number = SharedPreferenceManager.getInstance().getUserPhone();
-			//user_id = SharedPreferenceManager.getInstance().getUserId();
-			e_mail = "osoribal@gmail.com";
-			phone_number = "01022804436";
-			user_id = 22;
+			e_mail = SharedPreferenceManager.getInstance().getUserEmail();
+			phone_number = SharedPreferenceManager.getInstance().getUserPhone();
+			user_id = SharedPreferenceManager.getInstance().getUserId();
+			//e_mail = "osoribal@gmail.com";
+			//phone_number = "01022804436";
+			//user_id = 22;
 			
 			Login();
 						

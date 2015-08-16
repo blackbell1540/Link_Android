@@ -24,7 +24,7 @@ public class WaitingActivity extends Activity{
 	    setContentView(R.layout.acitivity_wating);
 	    
 	    //check my waiting status
-	    SharedPreferenceManager.getInstance().setUserId(22);
+	    //SharedPreferenceManager.getInstance().setUserId(22);
 	    user_id = SharedPreferenceManager.getInstance().getUserId();
 	    
 	    
