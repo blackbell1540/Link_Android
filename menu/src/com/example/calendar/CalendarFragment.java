@@ -1,6 +1,9 @@
 package com.example.calendar;
 
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import com.example.gallery.Picture;
 import com.example.gallery.PictureAdapter;
 import com.example.menu.NetworkManager;
@@ -8,10 +11,15 @@ import com.example.menu.NetworkManager.OnResultListener;
 import com.example.menu.R;
 
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +39,8 @@ public class CalendarFragment extends Fragment  {
 	static ListView list;
 	static ScheduleAdapter adapter;
 	
+	int y, m, d;
+	
  @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
@@ -43,6 +53,9 @@ public class CalendarFragment extends Fragment  {
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), ScheduleAddActivity.class);
 				intent.putExtra("date", date);
+				intent.putExtra("year", y);
+				intent.putExtra("month", m);
+				intent.putExtra("day", d);
 				startActivity(intent);
 			}
 		});
@@ -57,8 +70,15 @@ public class CalendarFragment extends Fragment  {
 					@Override
 					public void onSuccess(ScheduleRemoveResult r) {
 						// TODO Auto-generated method stub
-						if(r.success == 1)
+						if(r.success == 1) {
+							AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+					        Intent Intent = new Intent(getActivity().getApplicationContext(), AlarmReceiver.class);
+					        PendingIntent pIntent = PendingIntent.getActivity(getActivity(), 0, Intent, 0);
+					        alarmManager.cancel(pIntent);
+					        Log.d("alarm", "alarm deleted");
 							adapter.delete(s);
+						}
+							
 					}
 
 					@Override
@@ -78,6 +98,9 @@ public class CalendarFragment extends Fragment  {
 				Intent intent = new Intent(getActivity(), ScheduleModifyActivity.class);
 				intent.putExtra("date", date);
 				intent.putExtra("position", position);
+				intent.putExtra("year", y);
+				intent.putExtra("month", m);
+				intent.putExtra("day", d);
 				startActivity(intent);
 			}
         });
@@ -105,6 +128,9 @@ public class CalendarFragment extends Fragment  {
 				adapter.clear();
 				plus.setVisibility(Button.VISIBLE);
 				date = year + "-" + (month+1) + "-" + dayOfMonth;
+				y = year;
+				m = month+1;
+				d = dayOfMonth;
 				NetworkManager.getInstnace().getCalendarList(getActivity(), date, new OnResultListener<ScheduleListResult>() {
 
 					@Override

@@ -10,6 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +22,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +32,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.calendar.ScheduleModifyActivity;
 import com.example.menu.NetworkManager;
+import com.example.menu.SharedPreferenceManager;
 import com.example.menu.NetworkManager.OnResultListener;
 import com.example.menu.R;
 import com.github.nkzawa.emitter.Emitter;
@@ -44,6 +50,8 @@ public class ChattingActivity extends FragmentActivity {
 	BubbleAdapter adapter;
 	Socket socket;
 	FragmentManager fm = getSupportFragmentManager();
+	
+	int gid = 1, mid = 1;
 	
 	private static final int REQ_CODE_PICK_IMAGE = 0;
     String filePath = Environment.getExternalStorageDirectory() + "/tempPic.jpg";
@@ -65,8 +73,8 @@ public class ChattingActivity extends FragmentActivity {
         text = (EditText) findViewById(R.id.chat_text);
         
         try {
-        	//socket = IO.socket("http://192.168.219.90:3000");
-			socket = IO.socket("http://125.180.57.26:12345");
+        	socket = IO.socket("http://192.168.219.90:3000");
+			//socket = IO.socket("http://125.180.57.26:12345");
 		} catch (URISyntaxException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -82,8 +90,8 @@ public class ChattingActivity extends FragmentActivity {
 				//send LINK_ID, SENDER_ID, MESSAGE, PICTURE
 				JSONObject obj = new JSONObject();
 				try {
-					obj.put("LINK_ID", "1");
-					obj.put("SENDER_ID", "1");
+					obj.put("LINK_ID", ""+gid);
+					obj.put("SENDER_ID", ""+mid);
 					obj.put("MESSAGE", text.getText().toString());
 					obj.put("PICTURE", "-1");
 				} catch (JSONException e) {
@@ -156,13 +164,33 @@ public class ChattingActivity extends FragmentActivity {
 	    				// TODO Auto-generated catch block
 	    				e.printStackTrace();
 	    			}
-	    			if (b.sender_id == 1) 
+	    			if (b.sender_id == mid) 
 	    				b.type = b.SEND_BUBBLE;
 	    			else
 	    				b.type = b.RECEIVE_BUBBLE;
 	    			adapter.add(b);
 	    			adapter.clear();
 					initChatting();
+					NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+					NotificationCompat.Builder mCompatBuilder = new NotificationCompat.Builder(ChattingActivity.this);
+					mCompatBuilder.setSmallIcon(R.drawable.ic_launcher);
+					mCompatBuilder.setTicker(b.message);
+					mCompatBuilder.setWhen(System.currentTimeMillis());
+					mCompatBuilder.setContentTitle("message alarm");
+					mCompatBuilder.setContentText(b.message);
+					int notificationValue = 0;
+					if("ON".equals(SharedPreferenceManager.getInstance().getSound())) {
+						notificationValue |= Notification.DEFAULT_SOUND; 
+					}
+					if("ON".equals(SharedPreferenceManager.getInstance().getVibration())) {
+						notificationValue |= Notification.DEFAULT_VIBRATE; 
+					}
+					if(notificationValue == 0) {
+						notificationValue = Notification.DEFAULT_LIGHTS;
+					}
+					mCompatBuilder.setDefaults(notificationValue);
+					mCompatBuilder.setAutoCancel(true);
+					nm.notify(-1, mCompatBuilder.build());
 	            }
 	        });
 		}
@@ -188,8 +216,8 @@ public class ChattingActivity extends FragmentActivity {
 	            	    // Converting Image byte array into Base64 String
 	            	    String imageDataString = Base64.encodeToString(imageArray, Base64.DEFAULT);
 	            	    
-	 					obj.put("LINK_ID", "1");
-	 					obj.put("SENDER_ID", "1");
+	 					obj.put("LINK_ID", ""+gid);
+	 					obj.put("SENDER_ID", ""+mid);
 	 					obj.put("MESSAGE", "-1");
 	 					obj.put("PICTURE", imageDataString);
 	 					
@@ -223,7 +251,7 @@ public class ChattingActivity extends FragmentActivity {
 				// TODO Auto-generated method stub
 				if(r.success == 1) {
 					for(Bubble i : r.result) {
-						if (i.sender_id == 1) 
+						if (i.sender_id == mid) 
 							i.type = i.SEND_BUBBLE;
 						else
 							i.type = i.RECEIVE_BUBBLE;

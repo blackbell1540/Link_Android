@@ -83,8 +83,9 @@ public class NetworkManager {
 	
 	
 	Gson gson = new Gson();
-	//public static final String SERVER = "http://192.168.219.90:3000";
-	public static final String SERVER = "http://125.180.57.26:12345";
+	public static final String SERVER = "http://192.168.219.90:3000";
+	//public static final String SERVER = "http://125.180.57.26:12345";
+	int gid = 1, mid = 1;
 
 	//1. user login & join
 	public static final String USER_LOGIN_JOIN = SERVER + "/user/login";
@@ -297,7 +298,7 @@ public class NetworkManager {
 		{
 			RequestParams params = new RequestParams();
 			params.put("Modi", ""+modi);
-			params.put("LinkId", "1");
+			params.put("LinkId", ""+gid);
 			params.put("Id", ""+s.calendar_id);
 			params.put("date", s.date);
 			params.put("Name", s.calendar_name);
@@ -331,6 +332,7 @@ public class NetworkManager {
 		public void getCalendarRemove(Context context, int id, final OnResultListener<ScheduleRemoveResult> listener)
 		{
 			RequestParams params = new RequestParams();
+			//calendar id
 			params.put("Id", ""+id);
 			client.post(context, CALENDAR_REMOVE, params, new TextHttpResponseHandler() {
 				
@@ -357,7 +359,7 @@ public class NetworkManager {
 		{
 			RequestParams params = new RequestParams();
 			params.put("Date", date);
-			params.put("LinkId", "1");
+			params.put("LinkId", ""+gid);
 			client.post(context, CALENDAR_LIST, params, new TextHttpResponseHandler() {
 				
 
@@ -384,7 +386,7 @@ public class NetworkManager {
 		public void getChatting(Context context, final OnResultListener<BubbleListResult> listener)
 		{
 			RequestParams params = new RequestParams();
-			params.put("LinkId", "1");
+			params.put("LinkId", ""+gid);
 			client.get(context, CHATTING, params, new TextHttpResponseHandler() {
 				
 
