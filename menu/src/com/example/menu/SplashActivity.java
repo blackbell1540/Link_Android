@@ -31,7 +31,6 @@ public class SplashActivity extends Activity {
 		SharedPreferenceManager.getInstance().setIsLinked("Y");
 		String link = SharedPreferenceManager.getInstance().getIsLinked();
 
-		SharedPreferenceManager.getInstance().setUserId(17);
 		//already signUP
 		if(start.equals("Y"))
 		{	
@@ -62,7 +61,7 @@ public class SplashActivity extends Activity {
 			public void onSuccess(LoginResult result) {
 				if(result.success.equals("1"))
 				{
-	//				SharedPreferenceManager.getInstance().setUserId(result.result);
+					SharedPreferenceManager.getInstance().setUserId(result.result);
 					SharedPreferenceManager.getInstance().setIsSignUp("Y");
 				}
 			}

@@ -68,8 +68,8 @@ public class SignUpActivity extends Activity{
 	//find partner
 	public void findPartner()
 	{
-		//int user_id = SharedPreferenceManager.getInstance().getUserId();
-		int user_id = 17;
+		int user_id = SharedPreferenceManager.getInstance().getUserId();
+		
 		NetworkManager.getInstnace().findPartner(SignUpActivity.this, partenrMail, user_id, new OnResultListener<FindPartnerResult>() {
 			
 			@Override

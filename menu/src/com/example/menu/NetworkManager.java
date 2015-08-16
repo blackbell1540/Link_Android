@@ -427,7 +427,7 @@ public class NetworkManager {
 			@Override
 			public void onSuccess(int statusCode,
 					org.apache.http.Header[] headers, String responseString) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 		});
