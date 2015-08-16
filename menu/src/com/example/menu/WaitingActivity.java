@@ -65,6 +65,7 @@ public class WaitingActivity extends Activity{
 			@Override
 			public void onSuccess(UserInfo result) {
 				sender = result.result.get(0).email;
+				Log.i("sender", ""+sender);
 				receiveReq();
 			}
 			
@@ -102,10 +103,12 @@ public class WaitingActivity extends Activity{
 				if(result.success.equals("1"))
 				{ 
 					request = result.result.get(0).request;
+					Log.i("req result", "user : " + user_id + " request : " + request);
 				    //if I'm receiving request
 				    if(request != user_id)
 				    {
 						//who is request sender
+				    	Log.i("checkreq()", "req");
 				    	checkReqSender(request);
 				    }
 				}

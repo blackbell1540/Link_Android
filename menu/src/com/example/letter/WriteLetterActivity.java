@@ -47,10 +47,9 @@ public class WriteLetterActivity extends Activity {
 	
 	public void sendToServer()
 	{
-	//	link_id = SharedPreferenceManager.getInstance().getLinkId();
-	//	user_id = SharedPreferenceManager.getInstance().getUserId();
-		link_id = 1;
-		user_id = 1;
+		link_id = SharedPreferenceManager.getInstance().getLinkId();
+		user_id = SharedPreferenceManager.getInstance().getUserId();
+
 		
 		letter_content = editContent.getText().toString();
 		

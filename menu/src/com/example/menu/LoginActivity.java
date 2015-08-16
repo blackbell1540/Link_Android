@@ -112,7 +112,6 @@ public class LoginActivity extends Activity implements
 					//set inserted_user_id, google_email, phone_number
 					SharedPreferenceManager.getInstance().setUserEmail(accountEmail);
 					SharedPreferenceManager.getInstance().setUserPhone(phoneNumber);
-					user_id = 15;	//!!!server will not send user_id when login!!!
 					SharedPreferenceManager.getInstance().setUserId(user_id);
 					SharedPreferenceManager.getInstance().setIsSignUp("Y");
 					

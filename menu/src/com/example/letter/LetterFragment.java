@@ -44,7 +44,7 @@ public class LetterFragment extends Fragment  {
         list = (ListView)V.findViewById(R.id.listLetter);
         letterAdapter = new LetterAdapter(getActivity());
         link_id = SharedPreferenceManager.getInstance().getLinkId();
-        link_id = 1;
+        
         
         //delete button click
         
@@ -136,7 +136,7 @@ public class LetterFragment extends Fragment  {
  
  
  	private void initData() {
-	 final int myUserId = 1;
+	 final int myUserId = SharedPreferenceManager.getInstance().getUserId();
 	 Log.i("letter_frag","l: "+link_id+" u:" + myUserId);
 	 NetworkManager.getInstnace().getLetterList(getActivity(), link_id, new OnResultListener<ResultLetterList>() {
 		
